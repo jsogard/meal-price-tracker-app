@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MealWorm</string>
+
+    <!--<string name="ingr_quick_info">Bought on %b %e for $%03.2f</string>-->
+    <!--<string name="meal_quick_info">Made on %b %e for $%03.2f</string>-->
+    <!--<string name="use_count">You have used this %d times</string>-->
+    <!--<string name="cost_per_use">This has cost you $%03.2f per use</string>-->
+</resources>
