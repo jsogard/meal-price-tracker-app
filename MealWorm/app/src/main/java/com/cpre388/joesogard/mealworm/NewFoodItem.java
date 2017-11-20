@@ -60,7 +60,7 @@ public class NewFoodItem extends AppCompatActivity
         text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         emptyFrame().addView(text);
 
-        findViewById(R.id.frameHolder).setVisibility(View.VISIBLE);
+        findViewById(R.id.fragmentHolder).setVisibility(View.VISIBLE);
     }
 
     public void reformatGrocery(View v) {
@@ -73,7 +73,7 @@ public class NewFoodItem extends AppCompatActivity
         editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         emptyFrame().addView(editText);
 
-        findViewById(R.id.frameHolder).setVisibility(View.GONE);
+        findViewById(R.id.fragmentHolder).setVisibility(View.GONE);
     }
 
     public void finish(View v){
@@ -92,7 +92,7 @@ public class NewFoodItem extends AppCompatActivity
         } else {
             // meal item
 
-            food = new MealItem(name, (FoodItem[])ingredients.toArray());
+            food = new MealItem(name, ingredients.toArray(new FoodItem[ingredients.size()]));
         }
 
         DummyContent.addItem(food);

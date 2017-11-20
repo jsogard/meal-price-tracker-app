@@ -13,7 +13,6 @@ public class MealItem extends FoodItem{
     public MealItem(String name, FoodItem... ingredients){
         super(name);
         this.ingredients = ingredients;
-        // TODO ensure not cyclical
     }
 
     public MealItem(String name){
