@@ -7,7 +7,7 @@
     tools:context="com.cpre388.joesogard.mealworm.NewFoodItem">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/inputName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,8 +18,10 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"
-        app:layout_constraintHorizontal_bias="0.503" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -31,7 +33,9 @@
         android:checkedButton="@+id/groceryRadio"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText">
+        app:layout_constraintTop_toBottomOf="@+id/inputName"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <RadioButton
             android:id="@+id/groceryRadio"
@@ -54,28 +58,60 @@
             android:textSize="18sp"
             tools:layout_editor_absoluteX="33dp"
             tools:layout_editor_absoluteY="142dp" />
+
     </RadioGroup>
-
-    <FrameLayout
-        android:id="@+id/extraSettingHolder"
-        android:layout_width="368dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        tools:layout_editor_absoluteX="8dp">
-
-    </FrameLayout>
 
     <ImageButton
         android:id="@+id/checkBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_marginRight="0dp"
         android:background="#000f"
+        android:onClick="finish"
         android:scaleX="0.8"
         android:scaleY="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@mipmap/check_med" />
+
+    <FrameLayout
+        android:id="@+id/specialView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        app:layout_constraintLeft_toLeftOf="@+id/inputName"
+        app:layout_constraintRight_toRightOf="@+id/inputName"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+
+        <EditText
+            android:id="@+id/priceInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="$0.00"
+            android:inputType="numberDecimal" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fragmentHolder"
+        android:layout_width="365dp"
+        android:layout_height="315dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/specialView">
+
+        <fragment
+            android:id="@+id/fragment"
+            android:name="com.cpre388.joesogard.mealworm.PantryItemFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout="@layout/fragment_pantryitem_list" />
+    </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

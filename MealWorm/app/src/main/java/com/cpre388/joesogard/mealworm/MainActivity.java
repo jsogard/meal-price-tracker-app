@@ -12,6 +12,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
     implements PantryItemFragment.OnListFragmentInteractionListener{
 
+
+    private static final int NEW_FOOD_ITEM_CODE = 69;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,5 +28,41 @@ public class MainActivity extends AppCompatActivity
 
     public void goToNewItem(View v){
         startActivity(new Intent(this, NewFoodItem.class));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch(requestCode){
+            case NEW_FOOD_ITEM_CODE:
+                PantryItemFragment currFrag = (PantryItemFragment)getSupportFragmentManager().getFragments().get(0);
+                getSupportFragmentManager().beginTransaction()
+                        .detach(currFrag)
+                        .attach(currFrag)
+                        .commit();
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
+
+
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        if(getSupportFragmentManager().getFragments().size() == 0){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.frameHolder, new PantryItemFragment())
+                    .commit();
+        }
+        else {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frameHolder, new PantryItemFragment())
+                    .commit();
+        }
     }
 }

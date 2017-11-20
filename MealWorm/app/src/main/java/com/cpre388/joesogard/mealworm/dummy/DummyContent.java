@@ -28,7 +28,7 @@ public class DummyContent {
      */
     public static final Map<Long, FoodItem> ITEM_MAP = new HashMap<Long, FoodItem>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 7;
 
     static {
         // Add some sample items.
@@ -37,7 +37,7 @@ public class DummyContent {
         }
     }
 
-    private static void addItem(FoodItem item) {
+    public static void addItem(FoodItem item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.getId(), item);
     }

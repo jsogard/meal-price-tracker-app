@@ -1,5 +1,6 @@
 package com.cpre388.joesogard.mealworm;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,8 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.cpre388.joesogard.mealworm.dummy.DummyContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +33,8 @@ public class NewFoodItem extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_food_item);
-        isGrocery = false;
+        isGrocery = true;
         ingredients = new ArrayList<>();
-
-        reformatGrocery(null);
     }
 
     public void checkFormat(View v) {
@@ -45,7 +46,7 @@ public class NewFoodItem extends AppCompatActivity
     }
 
     private FrameLayout emptyFrame() {
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.extraSettingHolder);
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.specialView);
         frameLayout.removeAllViews();
         return frameLayout;
     }
@@ -54,11 +55,12 @@ public class NewFoodItem extends AppCompatActivity
         if(!isGrocery) return;
         isGrocery = false;
 
-        emptyFrame();
-        PantryItemFragment frag = new PantryItemFragment();
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.extraSettingHolder, new PantryItemFragment())
-                .commit();
+        TextView text = new TextView(this);
+        text.setText("Ingredients");
+        text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        emptyFrame().addView(text);
+
+        findViewById(R.id.frameHolder).setVisibility(View.VISIBLE);
     }
 
     public void reformatGrocery(View v) {
@@ -67,8 +69,35 @@ public class NewFoodItem extends AppCompatActivity
 
         EditText editText = new EditText(this);
         editText.setHint("$0.00");
+        editText.setId(R.id.priceInput);
         editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
         emptyFrame().addView(editText);
+
+        findViewById(R.id.frameHolder).setVisibility(View.GONE);
+    }
+
+    public void finish(View v){
+        EditText foodName = ((EditText)findViewById(R.id.inputName));
+        if(foodName.getText().toString().length() == 0){
+            Toast.makeText(this, "Must enter valid name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String name = foodName.getText().toString();
+        FoodItem food;
+        if(((RadioButton) findViewById(R.id.groceryRadio)).isChecked()){
+            // grocery item
+
+            double price = Double.parseDouble(((EditText)findViewById(R.id.priceInput)).getText().toString());
+            food = new GroceryItem(name, (float)price);
+        } else {
+            // meal item
+
+            food = new MealItem(name, (FoodItem[])ingredients.toArray());
+        }
+
+        DummyContent.addItem(food);
+        setResult(RESULT_OK);
+        finish();
     }
 
     @Override
