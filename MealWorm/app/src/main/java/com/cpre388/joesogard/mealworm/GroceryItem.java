@@ -23,7 +23,7 @@ public class GroceryItem extends FoodItem {
 
     @Override
     public float getCostPerUse() {
-        if(useHistory.size() == 0) return -1;
+        if(useHistory.size() == 0) return 0;
         return price / (float)useHistory.size();
     }
 

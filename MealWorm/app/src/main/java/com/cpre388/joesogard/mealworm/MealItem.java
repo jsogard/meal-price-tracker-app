@@ -38,7 +38,7 @@ public class MealItem extends FoodItem{
     @Override
     public float getCostPerUse(){
         float useCount = (float) useHistory.size();
-        if(useCount == 0) return -1;
+        if(useCount == 0) return 0;
         float costPerUse = 0;
         for(FoodItem f : ingredients)
             costPerUse += f.getCostPerUse() * useCount;

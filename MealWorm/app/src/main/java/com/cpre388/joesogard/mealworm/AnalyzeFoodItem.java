@@ -46,10 +46,14 @@ public class AnalyzeFoodItem extends AppCompatActivity
 
     private void updateUI(){
 
+        if(foodItem.isDepleted()){
+            findViewById(R.id.use).setVisibility(GONE);
+            findViewById(R.id.finish).setVisibility(GONE);
+        }
         ((TextView)findViewById(R.id.name)).setText(foodItem.getName());
         ((TextView)findViewById(R.id.quickInfo)).setText(foodItem.getQuickFacts());
         ((TextView)findViewById(R.id.useCount)).setText(
-                String.format("You have used this %d times", foodItem.getUseCount()));
+                String.format("You have used this %d time" + (foodItem.getUseCount() == 1 ? "" : "s"), foodItem.getUseCount()));
         ((TextView)findViewById(R.id.pricePerUse)).setText(
                 String.format("This has cost you $%03.2f per use", foodItem.getCostPerUse()));
     }
@@ -61,8 +65,6 @@ public class AnalyzeFoodItem extends AppCompatActivity
 
     public void finishItem(View v){
         foodItem.setDepleted(true);
-        findViewById(R.id.use).setVisibility(GONE);
-        findViewById(R.id.finish).setVisibility(GONE);
         updateUI();
     }
 
