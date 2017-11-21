@@ -23,7 +23,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onListFragmentInteraction(FoodItem item, MyPantryItemRecyclerViewAdapter.ViewHolder viewHolder) {
-        Toast.makeText(this, String.format("%s, pos %d", item.getName(), viewHolder.getAdapterPosition()), Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, AnalyzeFoodItem.class);
+        i.putExtra(AnalyzeFoodItem.EXTRA_FOOD_ID, item.getId());
+        startActivity(i);
     }
 
     public void goToNewItem(View v){

@@ -11,6 +11,13 @@ import java.util.List;
 
 public abstract class FoodItem {
 
+    public enum FoodItemType {
+        GROCERY,
+        MEAL
+    }
+
+    protected FoodItemType type;
+
     private static long FoodItemID = 0;
 
     private long id;
@@ -37,6 +44,8 @@ public abstract class FoodItem {
         FoodUse foodUse = new FoodUse(useLabels);
         use(foodUse);
     }
+
+    public FoodItemType getType(){ return type; }
 
     protected void use(FoodUse foodUse){
         useHistory.add(foodUse);

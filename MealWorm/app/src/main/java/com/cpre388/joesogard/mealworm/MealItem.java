@@ -10,6 +10,8 @@ public class MealItem extends FoodItem{
 
     private FoodItem[] ingredients;
 
+    protected FoodItemType type = FoodItemType.MEAL;
+
     public MealItem(String name, FoodItem... ingredients){
         super(name);
         this.ingredients = ingredients;

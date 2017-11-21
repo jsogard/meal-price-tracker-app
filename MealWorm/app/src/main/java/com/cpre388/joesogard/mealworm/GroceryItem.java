@@ -10,6 +10,7 @@ import java.util.Calendar;
 public class GroceryItem extends FoodItem {
 
     private float price;
+    protected FoodItemType type = FoodItemType.GROCERY;
 
     public GroceryItem(String name, float price) {
         super(name);

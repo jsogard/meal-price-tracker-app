@@ -42,6 +42,14 @@ public class DummyContent {
         ITEM_MAP.put(item.getId(), item);
     }
 
+    public static List<FoodItem> filterItems(long itemFilter[]){
+        ArrayList<FoodItem> items = new ArrayList<>();
+        for(long id : itemFilter){
+            items.add(ITEM_MAP.get(new Long(id)));
+        }
+        return items;
+    }
+
     private static FoodItem createDummyItem(int position) {
         Random r = new Random();
         if(r.nextBoolean())

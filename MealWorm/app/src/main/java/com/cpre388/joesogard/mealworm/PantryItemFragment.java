@@ -23,10 +23,10 @@ import java.util.List;
  */
 public class PantryItemFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+//    private static final String ARG_COLUMN_COUNT = "column-count";
+//    private int mColumnCount = 1;
+    private static final String EXTRA_ID_FILTER = "EXTRA-ID-FILTER";
+    private long[] itemIdFilter = null;
     private OnListFragmentInteractionListener mListener;
 
 //    private MyPantryItemRecyclerViewAdapter listAdapter;
@@ -38,12 +38,11 @@ public class PantryItemFragment extends Fragment {
     public PantryItemFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static PantryItemFragment newInstance(int columnCount) {
+    public static PantryItemFragment newInstance(long filterItems[]) {
         PantryItemFragment fragment = new PantryItemFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
+        args.putLongArray(EXTRA_ID_FILTER, filterItems);
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,7 +52,7 @@ public class PantryItemFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            itemIdFilter = getArguments().getLongArray(EXTRA_ID_FILTER);
         }
     }
 
@@ -66,12 +65,11 @@ public class PantryItemFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            if(itemIdFilter != null)
+                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(DummyContent.filterItems(itemIdFilter), mListener));
+            else
+                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
