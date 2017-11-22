@@ -3,17 +3,14 @@ package com.cpre388.joesogard.mealworm;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
-import com.cpre388.joesogard.mealworm.dummy.DummyContent;
-
-import java.util.List;
+import com.cpre388.joesogard.mealworm.data.AppData;
+import com.cpre388.joesogard.mealworm.models.FoodItem;
 
 /**
  * A fragment representing a list of Items.
@@ -67,9 +64,9 @@ public class PantryItemFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             if(itemIdFilter != null)
-                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(DummyContent.filterItems(itemIdFilter), mListener));
+                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(AppData.filterItems(itemIdFilter), mListener));
             else
-                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(AppData.ITEMS, mListener));
         }
         return view;
     }

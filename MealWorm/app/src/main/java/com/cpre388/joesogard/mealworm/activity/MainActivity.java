@@ -1,16 +1,17 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.activity;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.Toast;
+
+import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.R;
+import com.cpre388.joesogard.mealworm.models.FoodItem;
 
 public class MainActivity extends AppCompatActivity
-    implements PantryItemFragment.OnListFragmentInteractionListener{
+    implements PantryItemFragment.OnListFragmentInteractionListener {
 
 
     private static final int NEW_FOOD_ITEM_CODE = 69;

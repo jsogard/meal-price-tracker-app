@@ -1,4 +1,4 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.models;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -40,9 +40,17 @@ public abstract class FoodItem {
                 + genesis.get(Calendar.DAY_OF_MONTH);
     }
 
-    public void use(String ...useLabels){
-        FoodUse foodUse = new FoodUse(useLabels);
+    public void use(FoodItem usedBy, String ...useLabels){
+        FoodUse foodUse = new FoodUse(usedBy, useLabels);
         use(foodUse);
+    }
+
+    protected int getTimesUsedBy(FoodItem user){
+        int useCount = 0;
+        for(FoodUse use : useHistory){
+            if(use.getUsedBy() == user) useCount++;
+        }
+        return useCount;
     }
 
     public FoodItemType getType(){ return type; }

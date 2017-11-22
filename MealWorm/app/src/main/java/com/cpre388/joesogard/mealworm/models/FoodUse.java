@@ -1,4 +1,4 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -12,8 +12,10 @@ public class FoodUse {
 
     private List<String> useLabels;
     private Calendar useDate;
+    private FoodItem usedBy;
 
-    public FoodUse(String... useLabels){
+    public FoodUse(FoodItem usedBy, String... useLabels){
+        this.usedBy = usedBy;
         this.useLabels = new ArrayList<String>();
         for(String label : useLabels)
             this.useLabels.add(label);
@@ -27,4 +29,6 @@ public class FoodUse {
     public Calendar getDateOfUse(){
         return useDate;
     }
+
+    public FoodItem getUsedBy(){ return usedBy; }
 }

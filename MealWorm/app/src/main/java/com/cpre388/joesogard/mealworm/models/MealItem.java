@@ -1,6 +1,4 @@
-package com.cpre388.joesogard.mealworm;
-
-import java.util.Calendar;
+package com.cpre388.joesogard.mealworm.models;
 
 /**
  * Created by Joe Sogard on 9/7/2017.
@@ -39,9 +37,13 @@ public class MealItem extends FoodItem{
     public float getCostPerUse(){
         float useCount = (float) useHistory.size();
         if(useCount == 0) return 0;
+
         float costPerUse = 0;
-        for(FoodItem f : ingredients)
-            costPerUse += f.getCostPerUse() * useCount;
+
+        for(FoodItem ingr : ingredients){
+            costPerUse += (float)ingr.getTimesUsedBy(this) * ingr.getCostPerUse() / useCount;
+        }
+
         return costPerUse;
     }
 

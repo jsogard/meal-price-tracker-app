@@ -1,13 +1,16 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
-import com.cpre388.joesogard.mealworm.dummy.DummyContent;
+import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.R;
+import com.cpre388.joesogard.mealworm.data.AppData;
+import com.cpre388.joesogard.mealworm.models.*;
 
 import static android.view.View.GONE;
 
@@ -23,7 +26,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         long foodId = getIntent().getLongExtra(EXTRA_FOOD_ID, -1);
-        foodItem = DummyContent.ITEM_MAP.getOrDefault(new Long(foodId), null);
+        foodItem = AppData.ITEM_MAP.getOrDefault(new Long(foodId), null);
 
         if(foodItem instanceof MealItem){
             setContentView(R.layout.activity_meal_item);
@@ -59,7 +62,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
     }
 
     public void useItem(View v){
-        foodItem.use(new FoodUse());
+        foodItem.use(foodItem);
         updateUI();
     }
 
@@ -73,5 +76,11 @@ public class AnalyzeFoodItem extends AppCompatActivity
         Intent i = new Intent(this, AnalyzeFoodItem.class);
         i.putExtra(AnalyzeFoodItem.EXTRA_FOOD_ID, item.getId());
         startActivity(i);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
     }
 }

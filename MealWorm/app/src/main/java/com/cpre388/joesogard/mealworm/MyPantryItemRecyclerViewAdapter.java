@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.PantryItemFragment.OnListFragmentInteractionListener;
+import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.util.List;
 

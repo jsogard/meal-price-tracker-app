@@ -1,29 +1,29 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cpre388.joesogard.mealworm.dummy.DummyContent;
+import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.R;
+import com.cpre388.joesogard.mealworm.data.AppData;
+import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.GroceryItem;
+import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
 
 public class NewFoodItem extends AppCompatActivity
-    implements PantryItemFragment.OnListFragmentInteractionListener{
+    implements PantryItemFragment.OnListFragmentInteractionListener {
 
     private boolean isGrocery;
 
@@ -95,7 +95,7 @@ public class NewFoodItem extends AppCompatActivity
             food = new MealItem(name, ingredients.toArray(new FoodItem[ingredients.size()]));
         }
 
-        DummyContent.addItem(food);
+        AppData.addItem(food);
         setResult(RESULT_OK);
         finish();
     }

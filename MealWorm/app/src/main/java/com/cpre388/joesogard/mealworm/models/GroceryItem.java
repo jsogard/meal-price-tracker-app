@@ -1,7 +1,4 @@
-package com.cpre388.joesogard.mealworm;
-
-import java.lang.reflect.GenericArrayType;
-import java.util.Calendar;
+package com.cpre388.joesogard.mealworm.models;
 
 /**
  * Created by Joe Sogard on 9/6/2017.

@@ -1,8 +1,8 @@
-package com.cpre388.joesogard.mealworm.dummy;
+package com.cpre388.joesogard.mealworm.data;
 
-import com.cpre388.joesogard.mealworm.FoodItem;
-import com.cpre388.joesogard.mealworm.GroceryItem;
-import com.cpre388.joesogard.mealworm.MealItem;
+import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.GroceryItem;
+import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Random;
  * <p>
  * TODO: Replace all uses of this class before publishing your app.
  */
-public class DummyContent {
+public class AppData {
 
     /**
      * An array of sample (dummy) items.

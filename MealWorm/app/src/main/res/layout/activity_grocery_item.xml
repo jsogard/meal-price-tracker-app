@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cpre388.joesogard.mealworm.AnalyzeFoodItem">
+    tools:context="com.cpre388.joesogard.mealworm.activity.AnalyzeFoodItem">
 
     <ImageView
         android:id="@+id/imageView5"
