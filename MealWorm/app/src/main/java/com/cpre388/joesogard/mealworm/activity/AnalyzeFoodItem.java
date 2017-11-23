@@ -1,5 +1,6 @@
 package com.cpre388.joesogard.mealworm.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import com.cpre388.joesogard.mealworm.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.*;
+
+import java.io.FileNotFoundException;
 
 import static android.view.View.GONE;
 
@@ -64,11 +67,21 @@ public class AnalyzeFoodItem extends AppCompatActivity
     public void useItem(View v){
         foodItem.use(foodItem);
         updateUI();
+        try{
+            AppData.writeFoodUseData(openFileOutput(MainActivity.FOOD_USE_FILE_NAME, Context.MODE_PRIVATE));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void finishItem(View v){
         foodItem.setDepleted(true);
         updateUI();
+        try{
+            AppData.writeFoodItemData(openFileOutput(MainActivity.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.cpre388.joesogard.mealworm.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -19,6 +20,7 @@ import com.cpre388.joesogard.mealworm.models.FoodItem;
 import com.cpre388.joesogard.mealworm.models.GroceryItem;
 import com.cpre388.joesogard.mealworm.models.MealItem;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +98,11 @@ public class NewFoodItem extends AppCompatActivity
         }
 
         AppData.addItem(food);
-        setResult(RESULT_OK);
+        try{
+            AppData.writeFoodItemData(openFileOutput(MainActivity.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         finish();
     }
 

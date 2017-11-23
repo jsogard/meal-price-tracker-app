@@ -1,5 +1,7 @@
 package com.cpre388.joesogard.mealworm.models;
 
+import com.cpre388.joesogard.mealworm.data.AppData;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,6 +20,7 @@ public class FoodUse {
     private FoodItem usedBy;
 
     public static final String USE_DATE_MILLIS = "USE_DATE";
+    public static final String USED_BY_ID_LONG = "USED_BY_ID";
 
     public FoodUse(FoodItem usedBy, String... useLabels){
         this.usedBy = usedBy;
@@ -25,7 +28,21 @@ public class FoodUse {
         for(String label : useLabels)
             this.useLabels.add(label);
         useDate = Calendar.getInstance();
+
+        AppData.addUse(this);
     }
+
+    private FoodUse(JSONObject json){
+        try{
+            usedBy = AppData.ITEM_MAP.getOrDefault(json.getLong(USED_BY_ID_LONG), null);
+            useDate = Calendar.getInstance();
+            useDate.setTimeInMillis(json.getLong(USE_DATE_MILLIS));
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void setUseDate(long millis){ useDate.setTimeInMillis(millis);}
 
     public List<String> getLabels(){
         return useLabels;
@@ -41,10 +58,15 @@ public class FoodUse {
         try{
             JSONObject json = new JSONObject();
             json.put(USE_DATE_MILLIS, useDate.getTimeInMillis());
+            json.put(USED_BY_ID_LONG, usedBy.getId());
             return json;
         } catch(JSONException e){
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static FoodUse fromJSON(JSONObject jsonObject){
+        return new FoodUse(jsonObject);
     }
 }

@@ -10,17 +10,11 @@ import org.json.JSONObject;
 public class GroceryItem extends FoodItem {
 
     private float price;
-    protected FoodItemType type = FoodItemType.GROCERY;
-
-    public static final String GROCERY_ITEM_PRICE_FLOAT = "GROCERY_ITEM_PRICE";
-    public static final String GROCERY_ITEM_TYPE = "GROCERY";
 
     public GroceryItem(String name, float price) {
         super(name);
         this.price = price;
     }
-
-    private GroceryItem(String name, float price, )
 
     public float getPrice() {
         return price;
@@ -30,6 +24,30 @@ public class GroceryItem extends FoodItem {
     public float getCostPerUse() {
         if(useHistory.size() == 0) return 0;
         return price / (float)useHistory.size();
+    }
+
+    @Override
+    public String getQuickFacts() {
+        return String.format("Bought on %s for $%03.2f", getGenesisString(), price);
+    }
+
+
+    // ---- METHODS USED FOR READ/WRITING DATA FILE ----- //
+
+    public static final String GROCERY_ITEM_PRICE_FLOAT = "GROCERY_ITEM_PRICE";
+    public static final String GROCERY_ITEM_TYPE = "GROCERY";
+
+    private GroceryItem(JSONObject json){
+        super(json);
+        try{
+            this.price = (float)json.getDouble(GROCERY_ITEM_PRICE_FLOAT);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public static GroceryItem fromJSON(JSONObject json){
+        return new GroceryItem(json);
     }
 
     @Override
@@ -43,19 +61,5 @@ public class GroceryItem extends FoodItem {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static GroceryItem fromJSON(JSONObject json){
-        try{
-            String name = json.getString(FoodItem.FOOD_ITEM_NAME_STRING);
-            float price = 0;
-            GroceryItem groceryItem = new GroceryItem();
-        }
-
-    }
-
-    @Override
-    public String getQuickFacts() {
-        return String.format("Bought on %s for $%03.2f", getGenesisString(), price);
     }
 }

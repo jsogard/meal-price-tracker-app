@@ -2,6 +2,8 @@ package com.cpre388.joesogard.mealworm.models;
 
 import android.support.constraint.solver.Goal;
 
+import com.cpre388.joesogard.mealworm.data.AppData;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,20 +20,6 @@ import java.util.List;
 
 public abstract class FoodItem {
 
-    public enum FoodItemType {
-        GROCERY,
-        MEAL
-    }
-
-    public static final String FOOD_ITEM_TYPE_STRING = "FOOD_ITEM_TYPE";
-    public static final String FOOD_ITEM_ID_LONG = "FOOD_ITEM_ID";
-    public static final String FOOD_ITEM_NAME_STRING = "FOOD_ITEM_NAME";
-    public static final String FOOD_ITEM_IS_DEPLETED_BOOLEAN = "FOOD_ITEM_IS_DEPLETED";
-    public static final String FOOD_ITEM_GENESIS_MILLIS = "FOOD_ITEM_GENESIS";
-    public static final String FOOD_ITEM_USES_ARRAY = "FOOD_ITEM_USES";
-
-    protected FoodItemType type;
-
     private static long FoodItemID = 0;
 
     private long id;
@@ -47,21 +35,8 @@ public abstract class FoodItem {
         genesis = Calendar.getInstance();
     }
 
-    protected FoodItem(String name, long id, boolean isDepleted, long genesisMillis){
-        this.name = name;
-        this.id = id;
-        this.isDepleted();
-        genesis = Calendar.getInstance();
-        genesis.setTimeInMillis(genesisMillis);
-        useHistory = new LinkedList<>();
-    }
-
-    public Calendar getGenesis(){ return genesis; }
-
-    public String getGenesisString(){
-        return new DateFormatSymbols().getShortMonths()[genesis.get(Calendar.MONTH)]
-                + " "
-                + genesis.get(Calendar.DAY_OF_MONTH);
+    public void use(FoodUse foodUse){
+        useHistory.add(foodUse);
     }
 
     public void use(FoodItem usedBy, String ...useLabels){
@@ -84,45 +59,7 @@ public abstract class FoodItem {
         return uses;
     }
 
-    public FoodItemType getType(){ return type; }
-
-    protected void use(FoodUse foodUse){
-        useHistory.add(foodUse);
-    }
-
-    public JSONObject toJSON(){
-        JSONObject json = new JSONObject();
-        try{
-            json.put(FOOD_ITEM_NAME_STRING, name);
-            json.put(FOOD_ITEM_ID_LONG, id);
-            json.put(FOOD_ITEM_IS_DEPLETED_BOOLEAN, isDepleted);
-            json.put(FOOD_ITEM_GENESIS_MILLIS, genesis.getTimeInMillis());
-
-            JSONArray uses = new JSONArray();
-            for(FoodUse foodUse : getUsesByMe())
-                uses.put(foodUse.toJSON());
-            json.put(FOOD_ITEM_USES_ARRAY, uses);
-            return json;
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static FoodItem fromJSON(JSONObject json){
-        try{
-            String type = (String)json.getString(FOOD_ITEM_TYPE_STRING);
-            if(type.equals(GroceryItem.GROCERY_ITEM_TYPE))
-                return GroceryItem.fromJSON(json);
-            else if(type.equals(MealItem.MEAL_ITEM_TYPE))
-                return MealItem.fromJSON(json);
-        } catch(JSONException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-
+    // ---- NORMAL GETTERS & SETTERS ---- //
 
     public abstract float getCostPerUse();
 
@@ -150,5 +87,69 @@ public abstract class FoodItem {
 
     public List<FoodUse> getUseHistory(){
         return useHistory;
+    }
+
+    public Calendar getGenesis(){ return genesis; }
+
+    public String getGenesisString(){
+        return new DateFormatSymbols().getShortMonths()[genesis.get(Calendar.MONTH)]
+                + " "
+                + genesis.get(Calendar.DAY_OF_MONTH);
+    }
+
+    // ---- DATA FILE READ/WRITE METHODS ---- //
+
+
+    public static final String FOOD_ITEM_TYPE_STRING = "FOOD_ITEM_TYPE";
+    public static final String FOOD_ITEM_ID_LONG = "FOOD_ITEM_ID";
+    public static final String FOOD_ITEM_NAME_STRING = "FOOD_ITEM_NAME";
+    public static final String FOOD_ITEM_IS_DEPLETED_BOOLEAN = "FOOD_ITEM_IS_DEPLETED";
+    public static final String FOOD_ITEM_GENESIS_MILLIS = "FOOD_ITEM_GENESIS";
+
+    /**
+     * used by subclasses to populate common data easily
+     * @param json jsonobject from file data
+     */
+    protected FoodItem(JSONObject json){
+        try{
+            this.id = json.getLong(FOOD_ITEM_ID_LONG);
+            if(FoodItemID <= this.id) FoodItemID = this.id + 1;
+
+            this.name = json.getString(FOOD_ITEM_NAME_STRING);
+            this.genesis = Calendar.getInstance();
+            genesis.setTimeInMillis(json.getLong(FOOD_ITEM_GENESIS_MILLIS));
+            this.isDepleted = json.getBoolean(FOOD_ITEM_IS_DEPLETED_BOOLEAN);
+            useHistory = new LinkedList<>();
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    public JSONObject toJSON(){
+        JSONObject json = new JSONObject();
+        try{
+            json.put(FOOD_ITEM_NAME_STRING, name);
+            json.put(FOOD_ITEM_ID_LONG, id);
+            json.put(FOOD_ITEM_IS_DEPLETED_BOOLEAN, isDepleted);
+            json.put(FOOD_ITEM_GENESIS_MILLIS, genesis.getTimeInMillis());
+
+            return json;
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static FoodItem fromJSON(JSONObject json){
+        try{
+            String type = (String)json.getString(FOOD_ITEM_TYPE_STRING);
+            if(type.equals(GroceryItem.GROCERY_ITEM_TYPE))
+                return GroceryItem.fromJSON(json);
+            else if(type.equals(MealItem.MEAL_ITEM_TYPE))
+                return MealItem.fromJSON(json);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
