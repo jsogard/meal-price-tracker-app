@@ -2,9 +2,12 @@ package com.cpre388.joesogard.mealworm.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
 import com.cpre388.joesogard.mealworm.PantryItemFragment;
@@ -31,14 +34,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         readFoodItemData();
         readFoodUseData();
     }
 
     private void readFoodItemData(){
         try{
-            AppData.readFoodItemData(openFileInput(FOOD_ITEM_FILE_NAME));
+            AppData.readFoodItemData(openFileInput(AppData.FOOD_ITEM_FILE_NAME));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity
 
     private void readFoodUseData(){
         try{
-            AppData.readFoodUseData(openFileInput(FOOD_USE_FILE_NAME));
+            AppData.readFoodUseData(openFileInput(AppData.FOOD_USE_FILE_NAME));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

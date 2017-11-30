@@ -68,7 +68,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
         foodItem.use(foodItem);
         updateUI();
         try{
-            AppData.writeFoodUseData(openFileOutput(MainActivity.FOOD_USE_FILE_NAME, Context.MODE_PRIVATE));
+            AppData.writeFoodUseData(openFileOutput(AppData.FOOD_USE_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
         foodItem.setDepleted(true);
         updateUI();
         try{
-            AppData.writeFoodItemData(openFileOutput(MainActivity.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
+            AppData.writeFoodItemData(openFileOutput(AppData.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

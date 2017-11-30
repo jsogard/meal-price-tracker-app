@@ -5,4 +5,10 @@
     <!--<string name="meal_quick_info">Made on %b %e for $%03.2f</string>-->
     <!--<string name="use_count">You have used this %d times</string>-->
     <!--<string name="cost_per_use">This has cost you $%03.2f per use</string>-->
+    <string name="action_prompt">Food Actions</string>
+    <string-array name="food_actions">
+        <item>Use Item</item>
+        <item>Finish Item</item>
+        <item>Delete Item</item>
+    </string-array>
 </resources>

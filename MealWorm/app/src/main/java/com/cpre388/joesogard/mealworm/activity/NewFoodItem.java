@@ -99,7 +99,7 @@ public class NewFoodItem extends AppCompatActivity
 
         AppData.addItem(food);
         try{
-            AppData.writeFoodItemData(openFileOutput(MainActivity.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
+            AppData.writeFoodItemData(openFileOutput(AppData.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
