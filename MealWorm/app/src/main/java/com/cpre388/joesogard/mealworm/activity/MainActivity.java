@@ -14,8 +14,6 @@ import com.cpre388.joesogard.mealworm.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
-import com.cpre388.joesogard.mealworm.models.FoodUse;
-import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
