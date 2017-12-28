@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 *.iml
 .gradle
 /local.properties
@@ -8,7 +8,7 @@
 /build
 /captures
 .externalNativeBuild
-=======
+
 # Built application files
 *.apk
 *.ap_
@@ -64,4 +64,6 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
->>>>>>> b6acf3e322a2f4b50dbf1f5ad6c89396c7c3bf6c
+
+
+Mealworm.zip

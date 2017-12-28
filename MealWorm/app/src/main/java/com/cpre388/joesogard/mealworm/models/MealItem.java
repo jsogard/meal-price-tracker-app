@@ -13,6 +13,7 @@ import org.json.JSONObject;
 public class MealItem extends FoodItem{
 
     private FoodItem[] ingredients;
+    public static int FoodTypeID = 0;
 
     public MealItem(String name, FoodItem... ingredients){
         super(name);

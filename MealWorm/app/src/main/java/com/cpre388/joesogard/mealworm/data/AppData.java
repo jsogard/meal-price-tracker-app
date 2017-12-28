@@ -14,6 +14,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -120,9 +122,18 @@ public class AppData {
     }
 
     public static List<FoodItem> filterItems(long itemFilter[]){
-        ArrayList<FoodItem> items = new ArrayList<>();
+        LinkedList<FoodItem> items = new LinkedList<>();
         for(long id : itemFilter){
             items.add(ITEM_MAP.get(new Long(id)));
+        }
+        return items;
+    }
+
+    public static List<FoodItem> filterItems(int classFilter){
+        LinkedList<FoodItem> items = new LinkedList<>();
+        for(FoodItem foodItem : ITEMS){
+            if(foodItem instanceof MealItem)
+            if(foodItem.getFoodTypeID() == classFilter) items.add(foodItem);
         }
         return items;
     }

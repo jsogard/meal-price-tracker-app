@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.cpre388.joesogard.mealworm.MealItemFragment;
 import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
 import com.cpre388.joesogard.mealworm.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
@@ -69,15 +70,13 @@ public class MainActivity extends AppCompatActivity
 
         if(getSupportFragmentManager().getFragments().size() == 0){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frameHolder, new PantryItemFragment())
+                    .add(R.id.frameHolder, PantryItemFragment.newInstance(null))
                     .commit();
         }
         else {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameHolder, new PantryItemFragment())
+                    .replace(R.id.frameHolder, new MealItemFragment())
                     .commit();
         }
-
-        //writeFoodItemData();
     }
 }

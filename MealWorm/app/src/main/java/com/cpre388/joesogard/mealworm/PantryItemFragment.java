@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 
+import java.util.List;
+
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -20,13 +22,15 @@ import com.cpre388.joesogard.mealworm.models.FoodItem;
  */
 public class PantryItemFragment extends Fragment {
 
-//    private static final String ARG_COLUMN_COUNT = "column-count";
-//    private int mColumnCount = 1;
     private static final String EXTRA_ID_FILTER = "EXTRA-ID-FILTER";
     private long[] itemIdFilter = null;
+
+    protected static final String EXTRA_CLASS_FILTER = "EXTRA-CLASS-FILTER";
+    private int classFilter = -1;
+
+
     private OnListFragmentInteractionListener mListener;
 
-//    private MyPantryItemRecyclerViewAdapter listAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,12 +48,15 @@ public class PantryItemFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
             itemIdFilter = getArguments().getLongArray(EXTRA_ID_FILTER);
+            classFilter = getArguments().getInt(EXTRA_CLASS_FILTER, 0);
         }
     }
 
@@ -63,10 +70,13 @@ public class PantryItemFragment extends Fragment {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            if(itemIdFilter != null)
-                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(AppData.filterItems(itemIdFilter), mListener));
-            else
-                recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(AppData.ITEMS, mListener));
+
+            List<FoodItem> foodList;
+            if(itemIdFilter != null) foodList = AppData.filterItems(itemIdFilter);
+            else if(classFilter != -1) foodList = AppData.filterItems(classFilter);
+            else foodList = AppData.ITEMS;
+
+            recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(foodList, mListener));
         }
         return view;
     }

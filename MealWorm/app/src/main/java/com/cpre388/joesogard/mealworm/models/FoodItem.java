@@ -21,6 +21,8 @@ import java.util.List;
 public abstract class FoodItem {
 
     private static long FoodItemID = 0;
+    public static int FoodTypeID = -1;
+
 
     private long id;
     private String name;
@@ -64,6 +66,8 @@ public abstract class FoodItem {
     public abstract float getCostPerUse();
 
     public abstract String getQuickFacts();
+
+    public int getFoodTypeID(){ return this.FoodTypeID; }
 
     public long getId(){ return id; }
 
