@@ -1,27 +1,21 @@
 package com.cpre388.joesogard.mealworm.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
-import com.cpre388.joesogard.mealworm.MealItemFragment;
-import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
-import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.fragments.GroceryItemFragment;
+import com.cpre388.joesogard.mealworm.fragments.MealItemFragment;
+import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.GroceryItem;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity
     implements PantryItemFragment.OnListFragmentInteractionListener {
@@ -34,7 +28,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         readFoodItemData();
-        readFoodUseData();
+//        readFoodUseData();
     }
 
     private void readFoodItemData(){
@@ -70,12 +64,20 @@ public class MainActivity extends AppCompatActivity
 
         if(getSupportFragmentManager().getFragments().size() == 0){
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.frameHolder, PantryItemFragment.newInstance(null))
+                    .add(R.id.mealLayout, MealItemFragment.newInstance(null))
                     .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.groceryLayout, GroceryItemFragment.newInstance(null))
+                    .commit();
+
         }
         else {
+            // necessary to refresh the items
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.frameHolder, new MealItemFragment())
+                    .replace(R.id.mealLayout, MealItemFragment.newInstance(null))
+                    .commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.groceryLayout, GroceryItemFragment.newInstance(null))
                     .commit();
         }
     }

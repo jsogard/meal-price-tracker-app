@@ -121,7 +121,7 @@
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.cpre388.joesogard.mealworm.PantryItemFragment"
+            android:name="com.cpre388.joesogard.mealworm.fragments.PantryItemFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:layout="@layout/fragment_pantryitem_list" />

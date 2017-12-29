@@ -12,8 +12,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
-import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;

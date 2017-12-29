@@ -42,18 +42,15 @@ public class AppData {
      */
     public static final Map<Long, FoodItem> ITEM_MAP = new HashMap<Long, FoodItem>();
 
-    private static final int COUNT = 7;
-
-    static {
-        // Add some sample items.
-//        for (int i = 1; i <= COUNT; i++) {
-//            addItem(createDummyItem(i));
-//        }
-    }
-
     public static void addItem(FoodItem item) {
-        ITEMS.add(item);
-        ITEM_MAP.put(item.getId(), item);
+
+        if(item instanceof MealItem)
+            MealItem.addItem((MealItem) item);
+        else if(item instanceof GroceryItem)
+            GroceryItem.addItem((GroceryItem)item);
+
+//        ITEMS.add(item);
+//        ITEM_MAP.put(item.getId(), item);
     }
 
     public static void addUse(FoodUse use){
@@ -69,11 +66,10 @@ public class AppData {
             }
             JSONArray jsonArray = new JSONArray(json);
             for(int i = 0 ; i < jsonArray.length(); i++){
-                AppData.addItem(FoodItem.fromJSON(jsonArray.getJSONObject(i)));
+                addItem(FoodItem.fromJSON(jsonArray.getJSONObject(i)));
             }
-            for(FoodItem foodItem : AppData.ITEMS){
-                if(foodItem instanceof MealItem)
-                    ((MealItem)foodItem).populateIngredients();
+            for(MealItem foodItem : MealItem.getItems()){
+                foodItem.populateIngredients();
             }
         } catch(Exception e){
             e.printStackTrace();
@@ -119,30 +115,5 @@ public class AppData {
         } catch(Exception e){
             e.printStackTrace();
         }
-    }
-
-    public static List<FoodItem> filterItems(long itemFilter[]){
-        LinkedList<FoodItem> items = new LinkedList<>();
-        for(long id : itemFilter){
-            items.add(ITEM_MAP.get(new Long(id)));
-        }
-        return items;
-    }
-
-    public static List<FoodItem> filterItems(int classFilter){
-        LinkedList<FoodItem> items = new LinkedList<>();
-        for(FoodItem foodItem : ITEMS){
-            if(foodItem instanceof MealItem)
-            if(foodItem.getFoodTypeID() == classFilter) items.add(foodItem);
-        }
-        return items;
-    }
-
-    private static FoodItem createDummyItem(int position) {
-        Random r = new Random();
-        if(r.nextBoolean())
-            return new GroceryItem("Grocery Item " + position, r.nextFloat() + (float)r.nextInt(10));
-        if(ITEMS.size() == 0) return new MealItem("Meal Item " + position);
-        return new MealItem("Meal Item " + position, ITEMS.get(r.nextInt(ITEMS.size())));
     }
 }

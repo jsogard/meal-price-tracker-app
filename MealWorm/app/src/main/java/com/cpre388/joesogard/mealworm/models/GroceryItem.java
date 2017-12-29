@@ -3,6 +3,11 @@ package com.cpre388.joesogard.mealworm.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Joe Sogard on 9/6/2017.
  */
@@ -10,6 +15,9 @@ import org.json.JSONObject;
 public class GroceryItem extends FoodItem {
 
     private float price;
+
+    public static final int FoodTypeID = 1;
+    public static Map<Long, GroceryItem> ItemMap = new HashMap<>();
 
     public GroceryItem(String name, float price) {
         super(name);
@@ -29,6 +37,26 @@ public class GroceryItem extends FoodItem {
     @Override
     public String getQuickFacts() {
         return String.format("Bought on %s for $%03.2f", getGenesisString(), price);
+    }
+
+    public static List<GroceryItem> getItems(){
+        return new ArrayList<>(ItemMap.values());
+    }
+
+    public static void addItem(GroceryItem item){
+        ItemMap.put(item.getId(), item);
+    }
+
+    public static List<GroceryItem> filterItems(long[] ids){
+        if(ids == null) return new ArrayList<>(ItemMap.values());
+        List<GroceryItem> items = new ArrayList<>(ids.length);
+        GroceryItem groceryItem;
+        for(long id : ids){
+            groceryItem = ItemMap.get(id);
+            if(groceryItem != null)
+                items.add(groceryItem);
+        }
+        return items;
     }
 
 
@@ -62,4 +90,6 @@ public class GroceryItem extends FoodItem {
         }
         return null;
     }
+
+
 }

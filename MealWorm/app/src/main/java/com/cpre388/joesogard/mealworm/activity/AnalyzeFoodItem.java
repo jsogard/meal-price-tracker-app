@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cpre388.joesogard.mealworm.MyPantryItemRecyclerViewAdapter;
-import com.cpre388.joesogard.mealworm.PantryItemFragment;
+import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.*;
@@ -30,7 +30,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         long foodId = getIntent().getLongExtra(EXTRA_FOOD_ID, -1);
-        foodItem = AppData.ITEM_MAP.getOrDefault(new Long(foodId), null);
+        foodItem = FoodItem.getItem(foodId);
 
         if (foodItem instanceof MealItem) {
             setContentView(R.layout.activity_meal_item);

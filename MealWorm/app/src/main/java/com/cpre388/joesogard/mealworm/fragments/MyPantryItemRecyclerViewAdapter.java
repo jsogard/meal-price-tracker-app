@@ -1,4 +1,4 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.fragments;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cpre388.joesogard.mealworm.PantryItemFragment.OnListFragmentInteractionListener;
+import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 import com.cpre388.joesogard.mealworm.models.MealItem;
 
@@ -15,15 +15,15 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link FoodItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link PantryItemFragment.OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyPantryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPantryItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<FoodItem> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final PantryItemFragment.OnListFragmentInteractionListener mListener;
 
-    public MyPantryItemRecyclerViewAdapter(List<FoodItem> items, OnListFragmentInteractionListener listener) {
+    public MyPantryItemRecyclerViewAdapter(List<FoodItem> items, PantryItemFragment.OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

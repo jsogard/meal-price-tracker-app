@@ -6,6 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by Joe Sogard on 9/7/2017.
  */
@@ -13,7 +18,8 @@ import org.json.JSONObject;
 public class MealItem extends FoodItem{
 
     private FoodItem[] ingredients;
-    public static int FoodTypeID = 0;
+    public static final int FoodTypeID = 0;
+    public static Map<Long, MealItem> ItemMap = new HashMap<>();
 
     public MealItem(String name, FoodItem... ingredients){
         super(name);
@@ -69,6 +75,28 @@ public class MealItem extends FoodItem{
 
 
 
+    public static List<MealItem> getItems(){
+        return new ArrayList<>(ItemMap.values());
+    }
+
+    public static void addItem(MealItem item){
+        ItemMap.put(item.getId(), item);
+    }
+
+    public static List<MealItem> filterItems(long[] ids){
+        if(ids == null) return new ArrayList<>(ItemMap.values());
+        List<MealItem> items = new ArrayList<>(ids.length);
+        MealItem mealItem;
+        for(long id : ids){
+            mealItem = ItemMap.get(id);
+            if(mealItem != null)
+                items.add(ItemMap.get(id));
+        }
+        return items;
+    }
+
+
+
     // ---- DATA FILE READ/WRITE METHODS ---- //
 
     private long[] queuedIngredientIDs = null;
@@ -100,7 +128,7 @@ public class MealItem extends FoodItem{
 
         ingredients = new FoodItem[queuedIngredientIDs.length];
         for(int i = 0; i < ingredients.length; i++){
-            ingredients[i] = AppData.ITEM_MAP.getOrDefault(queuedIngredientIDs[i], null);
+            ingredients[i] = FoodItem.getItem(queuedIngredientIDs[i]);
         }
     }
 

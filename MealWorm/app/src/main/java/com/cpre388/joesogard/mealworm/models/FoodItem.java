@@ -1,16 +1,12 @@
 package com.cpre388.joesogard.mealworm.models;
 
-import android.support.constraint.solver.Goal;
-
-import com.cpre388.joesogard.mealworm.data.AppData;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +17,6 @@ import java.util.List;
 public abstract class FoodItem {
 
     private static long FoodItemID = 0;
-    public static int FoodTypeID = -1;
 
 
     private long id;
@@ -61,13 +56,64 @@ public abstract class FoodItem {
         return uses;
     }
 
+//    public static <T extends FoodItem> void addItem(T item){
+//        if(item instanceof MealItem)
+//            MealItem.addItem(item);
+//        else if(item instanceof GroceryItem)
+//            GroceryItem.addItem(item);
+//    }
+
+    public static List<FoodItem> getItemList(){
+        List<FoodItem> items = new ArrayList<>();
+        items.addAll(MealItem.getItems());
+        items.addAll(GroceryItem.getItems());
+
+        return sortItems(items);
+    }
+
+    private static List<FoodItem> sortItems(List<FoodItem> items){
+        items.sort(new Comparator<FoodItem>() {
+            @Override
+            public int compare(FoodItem foodItem, FoodItem t1) {
+                return foodItem.id > t1.id ? 1 : -1;
+            }
+        });
+        return items;
+    }
+
+    public static FoodItem getItem(long id){
+        if(MealItem.ItemMap.containsKey(id))
+            return MealItem.ItemMap.get(id);
+        if(GroceryItem.ItemMap.containsKey(id))
+            return GroceryItem.ItemMap.get(id);
+
+        return null;
+    }
+
+    public static List<FoodItem> getFilteredItems(long[] ids){
+        if(ids == null) return getItemList();
+        List<FoodItem> items = new ArrayList<>(ids.length);
+        for(long id : ids)
+            items.add(getItem(id));
+        return items;
+    }
+
+    public static List<? extends FoodItem> getFilteredItems(int classId, long[] ids){
+        switch(classId){
+            case MealItem.FoodTypeID:
+                return MealItem.filterItems(ids);
+            case GroceryItem.FoodTypeID:
+                return GroceryItem.filterItems(ids);
+            default:
+                return getFilteredItems(ids);
+        }
+    }
+
     // ---- NORMAL GETTERS & SETTERS ---- //
 
     public abstract float getCostPerUse();
 
     public abstract String getQuickFacts();
-
-    public int getFoodTypeID(){ return this.FoodTypeID; }
 
     public long getId(){ return id; }
 

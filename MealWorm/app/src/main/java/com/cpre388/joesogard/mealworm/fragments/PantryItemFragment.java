@@ -1,4 +1,4 @@
-package com.cpre388.joesogard.mealworm;
+package com.cpre388.joesogard.mealworm.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cpre388.joesogard.mealworm.data.AppData;
+import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 
 import java.util.List;
@@ -56,7 +56,7 @@ public class PantryItemFragment extends Fragment {
 
         if (getArguments() != null) {
             itemIdFilter = getArguments().getLongArray(EXTRA_ID_FILTER);
-            classFilter = getArguments().getInt(EXTRA_CLASS_FILTER, 0);
+            classFilter = getArguments().getInt(EXTRA_CLASS_FILTER, -1);
         }
     }
 
@@ -71,10 +71,7 @@ public class PantryItemFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            List<FoodItem> foodList;
-            if(itemIdFilter != null) foodList = AppData.filterItems(itemIdFilter);
-            else if(classFilter != -1) foodList = AppData.filterItems(classFilter);
-            else foodList = AppData.ITEMS;
+            List<FoodItem> foodList = (List<FoodItem>)FoodItem.getFilteredItems(classFilter, itemIdFilter);
 
             recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(foodList, mListener));
         }
@@ -113,4 +110,6 @@ public class PantryItemFragment extends Fragment {
 
         void onListFragmentInteraction(FoodItem item, MyPantryItemRecyclerViewAdapter.ViewHolder viewHolder);
     }
+
+
 }
