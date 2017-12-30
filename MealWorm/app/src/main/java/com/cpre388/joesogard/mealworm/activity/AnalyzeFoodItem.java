@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
@@ -49,8 +51,6 @@ public class AnalyzeFoodItem extends AppCompatActivity
                     .add(R.id.ingredients, PantryItemFragment.newInstance(filterIds))
                     .commit();
         }
-
-
     }
 
     private void updateUI() {

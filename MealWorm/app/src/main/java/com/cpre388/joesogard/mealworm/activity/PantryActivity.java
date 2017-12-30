@@ -3,7 +3,6 @@ package com.cpre388.joesogard.mealworm.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.cpre388.joesogard.mealworm.fragments.GroceryItemFragment;
@@ -13,11 +12,11 @@ import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
-import com.cpre388.joesogard.mealworm.models.GroceryItem;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity
+public class PantryActivity extends AppCompatActivity
     implements PantryItemFragment.OnListFragmentInteractionListener {
 
 
@@ -25,16 +24,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pantry);
 
+//        AppData.populateDummyData();
         readFoodItemData();
 //        readFoodUseData();
     }
 
     private void readFoodItemData(){
         try{
-            AppData.readFoodItemData(openFileInput(AppData.FOOD_ITEM_FILE_NAME));
+//            AppData.readFoodItemData(openFileInput(AppData.FOOD_ITEM_FILE_NAME));
+            AppData.readFakeData(getApplicationContext().getAssets().open("fooditems.json"));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

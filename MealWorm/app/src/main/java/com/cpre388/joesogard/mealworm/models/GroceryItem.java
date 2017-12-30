@@ -17,7 +17,7 @@ public class GroceryItem extends FoodItem {
     private float price;
 
     public static final int FoodTypeID = 1;
-    public static Map<Long, GroceryItem> ItemMap = new HashMap<>();
+    protected static Map<Long, GroceryItem> ItemMap = new HashMap<>();
 
     public GroceryItem(String name, float price) {
         super(name);
@@ -39,15 +39,17 @@ public class GroceryItem extends FoodItem {
         return String.format("Bought on %s for $%03.2f", getGenesisString(), price);
     }
 
-    public static List<GroceryItem> getItems(){
+    // ---- GROCERY ITEM STATIC DATA OPERATIONS ---- //
+
+    protected static List<GroceryItem> getItems(){
         return new ArrayList<>(ItemMap.values());
     }
 
-    public static void addItem(GroceryItem item){
+    protected static void addItem(GroceryItem item){
         ItemMap.put(item.getId(), item);
     }
 
-    public static List<GroceryItem> filterItems(long[] ids){
+    protected static List<GroceryItem> filterItems(long[] ids){
         if(ids == null) return new ArrayList<>(ItemMap.values());
         List<GroceryItem> items = new ArrayList<>(ids.length);
         GroceryItem groceryItem;

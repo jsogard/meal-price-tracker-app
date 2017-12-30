@@ -97,7 +97,7 @@ public class NewFoodItem extends AppCompatActivity
             food = new MealItem(name, ingredients.toArray(new FoodItem[ingredients.size()]));
         }
 
-        AppData.addItem(food);
+        FoodItem.addItem(food);
         try{
             AppData.writeFoodItemData(openFileOutput(AppData.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {

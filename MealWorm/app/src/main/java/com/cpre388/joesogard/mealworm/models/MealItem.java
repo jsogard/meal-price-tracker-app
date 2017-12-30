@@ -19,7 +19,7 @@ public class MealItem extends FoodItem{
 
     private FoodItem[] ingredients;
     public static final int FoodTypeID = 0;
-    public static Map<Long, MealItem> ItemMap = new HashMap<>();
+    protected static Map<Long, MealItem> ItemMap = new HashMap<>();
 
     public MealItem(String name, FoodItem... ingredients){
         super(name);
@@ -73,17 +73,17 @@ public class MealItem extends FoodItem{
         return qFact;
     }
 
+    // ---- MEAL ITEM STATIC DATA OPERATIONS ---- //
 
-
-    public static List<MealItem> getItems(){
+    protected static List<MealItem> getItems(){
         return new ArrayList<>(ItemMap.values());
     }
 
-    public static void addItem(MealItem item){
+    protected static void addItem(MealItem item){
         ItemMap.put(item.getId(), item);
     }
 
-    public static List<MealItem> filterItems(long[] ids){
+    protected static List<MealItem> filterItems(long[] ids){
         if(ids == null) return new ArrayList<>(ItemMap.values());
         List<MealItem> items = new ArrayList<>(ids.length);
         MealItem mealItem;
@@ -94,8 +94,6 @@ public class MealItem extends FoodItem{
         }
         return items;
     }
-
-
 
     // ---- DATA FILE READ/WRITE METHODS ---- //
 
@@ -124,6 +122,7 @@ public class MealItem extends FoodItem{
      * WARNING: only to be called once all items have been added to AppData.ITEM_MAP
      */
     public void populateIngredients(){
+        // TODO: 12/30/2017 enter in ingr ids as parameter to this
         if(queuedIngredientIDs == null) return;
 
         ingredients = new FoodItem[queuedIngredientIDs.length];

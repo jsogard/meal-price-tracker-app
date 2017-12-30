@@ -34,7 +34,7 @@ public class FoodUse {
 
     private FoodUse(JSONObject json){
         try{
-            usedBy = AppData.ITEM_MAP.getOrDefault(json.getLong(USED_BY_ID_LONG), null);
+//            usedBy = AppData.ITEM_MAP.getOrDefault(json.getLong(USED_BY_ID_LONG), null);
             useDate = Calendar.getInstance();
             useDate.setTimeInMillis(json.getLong(USE_DATE_MILLIS));
         } catch (JSONException e){

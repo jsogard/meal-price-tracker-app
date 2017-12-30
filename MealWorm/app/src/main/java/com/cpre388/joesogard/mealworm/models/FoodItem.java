@@ -18,7 +18,6 @@ public abstract class FoodItem {
 
     private static long FoodItemID = 0;
 
-
     private long id;
     private String name;
     protected List<FoodUse> useHistory;
@@ -56,12 +55,15 @@ public abstract class FoodItem {
         return uses;
     }
 
-//    public static <T extends FoodItem> void addItem(T item){
-//        if(item instanceof MealItem)
-//            MealItem.addItem(item);
-//        else if(item instanceof GroceryItem)
-//            GroceryItem.addItem(item);
-//    }
+    // ---- FOOD ITEM STATIC DATA OPERATIONS ---- //
+
+    public static void addItem(FoodItem item) {
+
+        if(item instanceof MealItem)
+            MealItem.addItem((MealItem) item);
+        else if(item instanceof GroceryItem)
+            GroceryItem.addItem((GroceryItem)item);
+    }
 
     public static List<FoodItem> getItemList(){
         List<FoodItem> items = new ArrayList<>();
@@ -71,31 +73,14 @@ public abstract class FoodItem {
         return sortItems(items);
     }
 
-    private static List<FoodItem> sortItems(List<FoodItem> items){
-        items.sort(new Comparator<FoodItem>() {
-            @Override
-            public int compare(FoodItem foodItem, FoodItem t1) {
-                return foodItem.id > t1.id ? 1 : -1;
-            }
-        });
-        return items;
-    }
-
     public static FoodItem getItem(long id){
+
         if(MealItem.ItemMap.containsKey(id))
             return MealItem.ItemMap.get(id);
         if(GroceryItem.ItemMap.containsKey(id))
             return GroceryItem.ItemMap.get(id);
 
         return null;
-    }
-
-    public static List<FoodItem> getFilteredItems(long[] ids){
-        if(ids == null) return getItemList();
-        List<FoodItem> items = new ArrayList<>(ids.length);
-        for(long id : ids)
-            items.add(getItem(id));
-        return items;
     }
 
     public static List<? extends FoodItem> getFilteredItems(int classId, long[] ids){
@@ -107,6 +92,24 @@ public abstract class FoodItem {
             default:
                 return getFilteredItems(ids);
         }
+    }
+
+    private static List<FoodItem> getFilteredItems(long[] ids){
+        if(ids == null) return getItemList();
+        List<FoodItem> items = new ArrayList<>(ids.length);
+        for(long id : ids)
+            items.add(getItem(id));
+        return items;
+    }
+
+    private static List<FoodItem> sortItems(List<FoodItem> items){
+        items.sort(new Comparator<FoodItem>() {
+            @Override
+            public int compare(FoodItem foodItem, FoodItem t1) {
+                return foodItem.id > t1.id ? 1 : -1;
+            }
+        });
+        return items;
     }
 
     // ---- NORMAL GETTERS & SETTERS ---- //

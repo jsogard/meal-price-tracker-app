@@ -8,12 +8,8 @@
 
     <include
         layout="@layout/title_bar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -96,7 +92,9 @@
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="@+id/inputName"
         app:layout_constraintRight_toRightOf="@+id/inputName"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup">
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <EditText
             android:id="@+id/priceInput"
@@ -109,7 +107,7 @@
 
     <FrameLayout
         android:id="@+id/fragmentHolder"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="328dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
@@ -117,7 +115,9 @@
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specialView">
+        app:layout_constraintTop_toBottomOf="@+id/specialView"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
         <fragment
             android:id="@+id/fragment"
