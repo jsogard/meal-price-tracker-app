@@ -35,7 +35,7 @@ public class GroceryItem extends FoodItem {
     }
 
     @Override
-    public String getQuickFacts() {
+    public String getLongFacts() {
         return String.format("Bought on %s for $%03.2f", getGenesisString(), price);
     }
 

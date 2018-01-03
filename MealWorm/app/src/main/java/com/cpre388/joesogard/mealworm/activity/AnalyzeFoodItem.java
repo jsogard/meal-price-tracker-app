@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
@@ -64,7 +62,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
             findViewById(R.id.finish).setVisibility(GONE);
         }
         ((TextView) findViewById(R.id.name)).setText(foodItem.getName());
-        ((TextView) findViewById(R.id.quickInfo)).setText(foodItem.getQuickFacts());
+        ((TextView) findViewById(R.id.quickInfo)).setText(foodItem.getLongFacts());
         ((TextView) findViewById(R.id.useCount)).setText(
                 String.format("You have used this %d time" + (foodItem.getUseCount() == 1 ? "" : "s"), foodItem.getUseCount()));
         ((TextView) findViewById(R.id.pricePerUse)).setText(

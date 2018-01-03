@@ -128,7 +128,19 @@ public abstract class FoodItem {
 
     public abstract float getCostPerUse();
 
-    public abstract String getQuickFacts();
+    public String getShortFacts() {
+        String facts = getLongFacts();
+        if(facts.length() > 35)
+            facts = facts.substring(0, 35) + "...";
+        return facts;
+    }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
+
+    public abstract String getLongFacts();
 
     public long getId(){ return id; }
 

@@ -44,7 +44,7 @@ public class MyPantryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPant
         else
             holder.imageId = R.mipmap.ingr_small;
         holder.mFoodIcon.setImageResource(holder.imageId);
-        holder.mQuickFacts.setText(holder.mItem.getQuickFacts());
+        holder.mQuickFacts.setText(holder.mItem.getShortFacts());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override

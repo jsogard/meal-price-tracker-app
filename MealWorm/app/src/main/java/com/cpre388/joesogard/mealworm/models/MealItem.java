@@ -57,20 +57,21 @@ public class MealItem extends FoodItem{
     }
 
     @Override
-    public String getQuickFacts() {
-        String qFact = "Made on " + getGenesisString();
-        if(ingredients.length > 0){
-            qFact += " from ";
-            boolean first = true;
-            for(FoodItem ingr : ingredients){
-                if(!first) qFact += ", ";
-                first = false;
-                qFact += ingr.getName();
+    public String getLongFacts() {
+        String facts = "Made on " + getGenesisString();
+        int len = ingredients.length;
+        if(len > 0)
+            facts += String.format(" from %s", ingredients[0]);
+
+        if(len > 1){
+            for(int i = 1; i < len-1; i++){
+                facts += String.format(", %s", ingredients[i]);
             }
+            if(len != 2) facts += ",";
+            facts += String.format(" and %s", ingredients[len-1]);
         }
-        if(qFact.length() > 45)
-            qFact = qFact.substring(0, 45) + "...";
-        return qFact;
+        
+        return facts;
     }
 
     // ---- MEAL ITEM STATIC DATA OPERATIONS ---- //
