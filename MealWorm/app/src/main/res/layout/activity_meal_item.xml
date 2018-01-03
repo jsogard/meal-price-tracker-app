@@ -26,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4"
+        app:layout_constraintTop_toBottomOf="parent"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -36,7 +36,7 @@
         <include
             android:id="@+id/include4"
             layout="@layout/title_bar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="60dp"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -45,106 +45,83 @@
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1" />
 
+
         <ScrollView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="0dp"
+            android:clipToPadding="false"
+            android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include4">
+            app:layout_constraintTop_toBottomOf="@+id/include4"
+            app:layout_constraintVertical_bias="0.0">
 
-            <LinearLayout
-                android:id="@+id/linearLayout2"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginStart="8dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/linearLayout"
-                tools:layout_constraintBottom_creator="1"
-                tools:layout_constraintLeft_creator="1"
-                tools:layout_constraintRight_creator="1"
-                tools:layout_constraintTop_creator="1">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text="Meal Item!"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/include4" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
                 <TextView
                     android:id="@+id/quickInfo"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_alignLeft="@+id/name"
+                    android:layout_alignStart="@+id/name"
+                    android:layout_below="@+id/name"
                     android:layout_marginTop="8dp"
-                    android:text="Made on mm/dd/yyyy for $2.10"
+                    android:text="Made of this and this and this"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textSize="18sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/name"
-                    tools:text="string/meal_quick_info" />
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/useCount"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="20dp"
-                    android:text="You have used this 10 times"
-                    android:textSize="24sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/quickInfo"
-                    tools:text="string/use_count" />
+                    android:layout_alignLeft="@+id/quickInfo"
+                    android:layout_alignStart="@+id/quickInfo"
+                    android:layout_below="@+id/quickInfo"
+                    android:layout_marginTop="8dp"
+                    android:text="You have used this x times"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/pricePerUse"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_alignLeft="@+id/useCount"
+                    android:layout_alignStart="@+id/useCount"
+                    android:layout_below="@+id/useCount"
                     android:layout_marginTop="8dp"
-                    android:text="It has cost you $0.21 per use"
-                    android:textSize="24sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/useCount"
-                    tools:text="string/cost_per_use" />
+                    android:text="This has cost you x dolla"
+                    android:textSize="24sp" />
 
                 <FrameLayout
                     android:id="@+id/ingredients"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pricePerUse">
+                    android:layout_alignLeft="@+id/pricePerUse"
+                    android:layout_alignStart="@+id/pricePerUse"
+                    android:layout_below="@+id/pricePerUse"
+                    android:layout_marginTop="8dp">
 
                 </FrameLayout>
+            </RelativeLayout>
 
-            </LinearLayout>
         </ScrollView>
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -178,6 +155,7 @@
                 android:textColor="@android:color/background_light"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
