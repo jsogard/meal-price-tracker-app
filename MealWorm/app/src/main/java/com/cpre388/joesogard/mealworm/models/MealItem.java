@@ -70,7 +70,7 @@ public class MealItem extends FoodItem{
             if(len != 2) facts += ",";
             facts += String.format(" and %s", ingredients[len-1]);
         }
-        
+
         return facts;
     }
 
