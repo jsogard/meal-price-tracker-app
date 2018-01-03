@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
 import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
@@ -47,8 +48,11 @@ public class AnalyzeFoodItem extends AppCompatActivity
             for (int i = 0; i < ingredients.length; i++)
                 filterIds[i] = ingredients[i].getId();
 
+            PantryFilter filter = new PantryFilter();
+            filter.addFilterValue(filterIds, PantryFilter.FILTER_BY_ID);
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.ingredients, PantryItemFragment.newInstance(filterIds))
+                    .add(R.id.ingredients, PantryItemFragment.newInstance(filter))
                     .commit();
         }
     }

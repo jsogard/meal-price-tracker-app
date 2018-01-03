@@ -5,13 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cpre388.joesogard.mealworm.fragments.GroceryItemFragment;
-import com.cpre388.joesogard.mealworm.fragments.MealItemFragment;
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
 import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.GroceryItem;
+import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -65,22 +66,30 @@ public class PantryActivity extends AppCompatActivity
     protected void onPostResume() {
         super.onPostResume();
 
+        PantryFilter mealFilter = new PantryFilter();
+        mealFilter.addFilterValue(MealItem.class, PantryFilter.FILTER_BY_CLASS);
+
+        PantryFilter groceryFilter = new PantryFilter();
+        groceryFilter.addFilterValue(GroceryItem.class, PantryFilter.FILTER_BY_CLASS);
+
         if(getSupportFragmentManager().getFragments().size() == 0){
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.mealLayout, MealItemFragment.newInstance(null))
+                    .add(R.id.mealLayout, PantryItemFragment.newInstance(mealFilter))
                     .commit();
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.groceryLayout, GroceryItemFragment.newInstance(null))
+                    .add(R.id.groceryLayout, PantryItemFragment.newInstance(groceryFilter))
                     .commit();
 
         }
         else {
             // necessary to refresh the items
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.mealLayout, MealItemFragment.newInstance(null))
+                    .replace(R.id.mealLayout, PantryItemFragment.newInstance(mealFilter))
                     .commit();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.groceryLayout, GroceryItemFragment.newInstance(null))
+                    .replace(R.id.groceryLayout, PantryItemFragment.newInstance(groceryFilter))
                     .commit();
         }
     }

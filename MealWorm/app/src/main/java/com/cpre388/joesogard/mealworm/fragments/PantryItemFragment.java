@@ -12,7 +12,13 @@ import android.view.ViewGroup;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * A fragment representing a list of Items.
@@ -22,14 +28,8 @@ import java.util.List;
  */
 public class PantryItemFragment extends Fragment {
 
-    private static final String EXTRA_ID_FILTER = "EXTRA-ID-FILTER";
-    private long[] itemIdFilter = null;
-
-    protected static final String EXTRA_CLASS_FILTER = "EXTRA-CLASS-FILTER";
-    private int classFilter = -1;
-
-
     private OnListFragmentInteractionListener mListener;
+    private PantryFilter pantryFilter;
 
 
     /**
@@ -40,24 +40,10 @@ public class PantryItemFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
-    public static PantryItemFragment newInstance(long filterItems[]) {
+    public static PantryItemFragment newInstance(PantryFilter filter) {
         PantryItemFragment fragment = new PantryItemFragment();
-        Bundle args = new Bundle();
-        args.putLongArray(EXTRA_ID_FILTER, filterItems);
-        fragment.setArguments(args);
+        fragment.pantryFilter = filter;
         return fragment;
-    }
-
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            itemIdFilter = getArguments().getLongArray(EXTRA_ID_FILTER);
-            classFilter = getArguments().getInt(EXTRA_CLASS_FILTER, -1);
-        }
     }
 
     @Override
@@ -71,7 +57,7 @@ public class PantryItemFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            List<FoodItem> foodList = (List<FoodItem>)FoodItem.getFilteredItems(classFilter, itemIdFilter);
+            List<FoodItem> foodList = pantryFilter.filter(FoodItem.getItemList());
 
             recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(foodList, mListener));
         }

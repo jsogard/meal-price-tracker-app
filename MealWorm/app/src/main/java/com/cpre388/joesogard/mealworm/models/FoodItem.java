@@ -1,5 +1,8 @@
 package com.cpre388.joesogard.mealworm.models;
 
+import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
+import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +49,15 @@ public abstract class FoodItem {
             if(use.getUsedBy() == user) useCount++;
         }
         return useCount;
+    }
+
+    public static Comparator<FoodItem> getComparator(){
+        return new Comparator<FoodItem>() {
+            @Override
+            public int compare(FoodItem foodItem, FoodItem t1) {
+                return foodItem.getId() > t1.getId() ? 1 : -1;
+            }
+        };
     }
 
     private List<FoodUse> getUsesByMe(){
