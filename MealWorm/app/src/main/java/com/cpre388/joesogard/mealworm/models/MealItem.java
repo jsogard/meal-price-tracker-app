@@ -1,6 +1,6 @@
 package com.cpre388.joesogard.mealworm.models;
 
-import com.cpre388.joesogard.mealworm.data.AppData;
+import com.cpre388.joesogard.mealworm.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,18 +21,27 @@ public class MealItem extends FoodItem{
     public static final int FoodTypeID = 0;
     protected static Map<Long, MealItem> ItemMap = new HashMap<>();
 
-    public MealItem(String name, FoodItem... ingredients){
-        super(name);
-        this.ingredients = ingredients;
-    }
-
     public MealItem(String name){
         super(name);
         ingredients = new FoodItem[]{};
     }
 
+    public MealItem(String name, FoodItem... ingredients){
+        this(name);
+        this.ingredients = ingredients;
+    }
+
     public FoodItem[] getIngredients(){
         return ingredients;
+    }
+
+    @Override
+    public void updateImgResourceID() {
+        if(isDepleted())
+            smallImgResourceID = R.mipmap.meal_small_red;
+        else
+            smallImgResourceID = R.mipmap.meal_small;
+        bigImgResourceID = R.mipmap.big_meal;
     }
 
     @Override

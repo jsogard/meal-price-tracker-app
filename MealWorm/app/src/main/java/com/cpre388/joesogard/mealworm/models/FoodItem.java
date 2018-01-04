@@ -1,8 +1,5 @@
 package com.cpre388.joesogard.mealworm.models;
 
-import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
-import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,12 +23,15 @@ public abstract class FoodItem {
     protected List<FoodUse> useHistory;
     private boolean isDepleted;
     protected Calendar genesis;
+    protected int smallImgResourceID;
+    protected int bigImgResourceID;
 
     public FoodItem(String name){
         this.name = name;
         useHistory = new LinkedList<>();
         id = FoodItemID++;
         genesis = Calendar.getInstance();
+        updateImgResourceID();
     }
 
     public void use(FoodUse foodUse){
@@ -140,6 +140,16 @@ public abstract class FoodItem {
         return getName();
     }
 
+    public int getSmallImgResourceID() {
+        return smallImgResourceID;
+    }
+
+    public int getBigImgResourceID() {
+        return bigImgResourceID;
+    }
+
+    public abstract void updateImgResourceID();
+
     public abstract String getLongFacts();
 
     public long getId(){ return id; }
@@ -160,6 +170,7 @@ public abstract class FoodItem {
 
     public void setDepleted(boolean depleted) {
         isDepleted = depleted;
+        updateImgResourceID();
     }
 
     public List<FoodUse> getUseHistory(){
@@ -200,6 +211,7 @@ public abstract class FoodItem {
         } catch(JSONException e){
             e.printStackTrace();
         }
+        updateImgResourceID();
     }
 
     public JSONObject toJSON(){

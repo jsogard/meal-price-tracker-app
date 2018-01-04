@@ -1,5 +1,7 @@
 package com.cpre388.joesogard.mealworm.models;
 
+import com.cpre388.joesogard.mealworm.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +28,15 @@ public class GroceryItem extends FoodItem {
 
     public float getPrice() {
         return price;
+    }
+
+    @Override
+    public void updateImgResourceID() {
+        if(isDepleted())
+            smallImgResourceID = R.mipmap.ingr_small_red;
+        else
+            smallImgResourceID = R.mipmap.ingr_small;
+        bigImgResourceID = R.mipmap.big_ingr;
     }
 
     @Override

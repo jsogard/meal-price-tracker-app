@@ -39,10 +39,7 @@ public class MyPantryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPant
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mFoodName.setText(holder.mItem.getName());
-        if(holder.mItem instanceof MealItem)
-            holder.imageId = R.mipmap.meal_small;
-        else
-            holder.imageId = R.mipmap.ingr_small;
+        holder.imageId = holder.mItem.getSmallImgResourceID();
         holder.mFoodIcon.setImageResource(holder.imageId);
         holder.mQuickFacts.setText(holder.mItem.getShortFacts());
 

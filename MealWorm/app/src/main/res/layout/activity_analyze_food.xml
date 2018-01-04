@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cpre388.joesogard.mealworm.activity.AnalyzeFoodItem">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/backgroundImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/big_meal"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintLeft_creator="1" />
+        app:srcCompat="@mipmap/big_meal"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
 
 
         <include
-            android:id="@+id/include4"
+            android:id="@+id/titleBar"
             layout="@layout/title_bar"
             android:layout_width="0dp"
             android:layout_height="60dp"
@@ -52,10 +52,9 @@
             android:clipToPadding="false"
             android:fillViewport="true"
             app:layout_constraintBottom_toTopOf="@+id/buttonHolder"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include4"
+            app:layout_constraintTop_toBottomOf="@+id/titleBar"
             app:layout_constraintVertical_bias="0.0">
 
             <RelativeLayout
@@ -72,7 +71,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="Meal Item!"
+                    android:text="Food Item!"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
                 <TextView
@@ -83,7 +82,7 @@
                     android:layout_alignStart="@+id/name"
                     android:layout_below="@+id/name"
                     android:layout_marginTop="8dp"
-                    android:text="Made of this and this and this"
+                    android:text="Obtained on this day"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textSize="18sp" />
 
@@ -110,15 +109,18 @@
                     android:textSize="24sp" />
 
                 <FrameLayout
-                    android:id="@+id/ingredients"
+                    android:id="@+id/foodContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/pricePerUse"
+                    android:layout_alignLeft="@id/pricePerUse"
                     android:layout_alignStart="@+id/pricePerUse"
                     android:layout_below="@+id/pricePerUse"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="8dp">
 
                 </FrameLayout>
+
             </RelativeLayout>
 
         </ScrollView>

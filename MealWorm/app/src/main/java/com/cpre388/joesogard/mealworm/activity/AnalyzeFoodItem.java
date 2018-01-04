@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
@@ -33,11 +34,9 @@ public class AnalyzeFoodItem extends AppCompatActivity
         long foodId = getIntent().getLongExtra(EXTRA_FOOD_ID, -1);
         foodItem = FoodItem.getItem(foodId);
 
-        if (foodItem instanceof MealItem) {
-            setContentView(R.layout.activity_meal_item);
-        } else if (foodItem instanceof GroceryItem) {
-            setContentView(R.layout.activity_grocery_item);
-        }
+        setContentView(R.layout.activity_analyze_food);
+
+        ((ImageView)findViewById(R.id.backgroundImage)).setImageResource(foodItem.getBigImgResourceID());
 
         updateUI();
         if (foodItem instanceof MealItem) {
@@ -49,8 +48,10 @@ public class AnalyzeFoodItem extends AppCompatActivity
             PantryFilter filter = new PantryFilter();
             filter.addFilterValue(filterIds, PantryFilter.FILTER_BY_ID);
 
+
+
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.ingredients, PantryItemFragment.newInstance(filter))
+                    .add(R.id.foodContent, PantryItemFragment.newInstance(filter))
                     .commit();
         }
     }
