@@ -33,10 +33,10 @@ public class GroceryItem extends FoodItem {
     @Override
     public void updateImgResourceID() {
         if(isDepleted())
-            smallImgResourceID = R.mipmap.ingr_small_red;
+            smallImgResourceID = R.mipmap.grocery_small_red;
         else
-            smallImgResourceID = R.mipmap.ingr_small;
-        bigImgResourceID = R.mipmap.big_ingr;
+            smallImgResourceID = R.mipmap.grocery_small;
+        bigImgResourceID = R.mipmap.grocery_background;
     }
 
     @Override

@@ -80,7 +80,7 @@
         android:scaleY="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@mipmap/check_med" />
+        app:srcCompat="@mipmap/checkmark_green_solid" />
 
     <FrameLayout
         android:id="@+id/specialView"

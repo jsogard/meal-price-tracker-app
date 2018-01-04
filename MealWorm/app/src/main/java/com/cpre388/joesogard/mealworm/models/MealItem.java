@@ -41,7 +41,7 @@ public class MealItem extends FoodItem{
             smallImgResourceID = R.mipmap.meal_small_red;
         else
             smallImgResourceID = R.mipmap.meal_small;
-        bigImgResourceID = R.mipmap.big_meal;
+        bigImgResourceID = R.mipmap.meal_background;
     }
 
     @Override

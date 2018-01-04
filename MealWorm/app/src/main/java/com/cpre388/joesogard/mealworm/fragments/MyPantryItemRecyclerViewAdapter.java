@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
-import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.util.List;
 
@@ -83,7 +82,7 @@ public class MyPantryItemRecyclerViewAdapter extends RecyclerView.Adapter<MyPant
             if(selected)
                 mFoodIcon.setImageResource(imageId);
             else
-                mFoodIcon.setImageResource(R.mipmap.check_med);
+                mFoodIcon.setImageResource(R.mipmap.checkmark_green);
             selected = !selected;
             return selected;
         }

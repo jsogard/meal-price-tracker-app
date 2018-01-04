@@ -10,7 +10,7 @@
         android:id="@+id/foodIcon"
         android:layout_width="56dp"
         android:layout_height="54dp"
-        app:srcCompat="@mipmap/ingr_small"
+        app:srcCompat="@mipmap/grocery_small"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
