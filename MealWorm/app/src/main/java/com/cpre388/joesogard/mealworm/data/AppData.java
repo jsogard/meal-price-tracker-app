@@ -2,6 +2,7 @@ package com.cpre388.joesogard.mealworm.data;
 
 import android.content.Context;
 
+import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 import com.cpre388.joesogard.mealworm.models.FoodUse;
 import com.cpre388.joesogard.mealworm.models.GroceryItem;
@@ -85,8 +86,10 @@ public class AppData {
             for(int i = 0; i < jsonArray.length(); i++){
                 FoodItem.addItem(FoodItem.fromJSON(jsonArray.getJSONObject(i)));
             }
-            for(MealItem meal : (List<MealItem>) FoodItem.getFilteredItems(MealItem.FoodTypeID, null)) {
-                meal.populateIngredients();
+            PantryFilter filter = new PantryFilter();
+            filter.addFilterValue(MealItem.class, PantryFilter.FILTER_BY_CLASS);
+            for(FoodItem meal : filter.filter(FoodItem.getItemList())){
+                ((MealItem)meal).populateIngredients();
             }
         } catch(JSONException e){
             e.printStackTrace();

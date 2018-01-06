@@ -17,8 +17,6 @@ import java.util.Map;
 public class GroceryItem extends FoodItem {
 
     private float price;
-
-    public static final int FoodTypeID = 1;
     protected static Map<Long, GroceryItem> ItemMap = new HashMap<>();
 
     public GroceryItem(String name, float price) {

@@ -18,7 +18,6 @@ import java.util.Map;
 public class MealItem extends FoodItem{
 
     private FoodItem[] ingredients;
-    public static final int FoodTypeID = 0;
     protected static Map<Long, MealItem> ItemMap = new HashMap<>();
 
     public MealItem(String name){

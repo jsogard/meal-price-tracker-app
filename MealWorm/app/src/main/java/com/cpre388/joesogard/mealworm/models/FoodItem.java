@@ -95,25 +95,6 @@ public abstract class FoodItem {
         return null;
     }
 
-    public static List<? extends FoodItem> getFilteredItems(int classId, long[] ids){
-        switch(classId){
-            case MealItem.FoodTypeID:
-                return MealItem.filterItems(ids);
-            case GroceryItem.FoodTypeID:
-                return GroceryItem.filterItems(ids);
-            default:
-                return getFilteredItems(ids);
-        }
-    }
-
-    private static List<FoodItem> getFilteredItems(long[] ids){
-        if(ids == null) return getItemList();
-        List<FoodItem> items = new ArrayList<>(ids.length);
-        for(long id : ids)
-            items.add(getItem(id));
-        return items;
-    }
-
     private static List<FoodItem> sortItems(List<FoodItem> items){
         items.sort(new Comparator<FoodItem>() {
             @Override
