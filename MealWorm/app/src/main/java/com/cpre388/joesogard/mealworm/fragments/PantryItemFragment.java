@@ -57,7 +57,11 @@ public class PantryItemFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            List<FoodItem> foodList = pantryFilter.filter(FoodItem.getItemList());
+            List<FoodItem> foodList;
+            if(pantryFilter != null)
+                foodList = pantryFilter.filter(FoodItem.getItemList());
+            else
+                foodList = FoodItem.getItemList();
 
             recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(foodList, mListener));
         }

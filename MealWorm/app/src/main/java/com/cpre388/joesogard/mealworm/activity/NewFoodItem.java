@@ -21,6 +21,7 @@ import com.cpre388.joesogard.mealworm.models.GroceryItem;
 import com.cpre388.joesogard.mealworm.models.MealItem;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +79,7 @@ public class NewFoodItem extends AppCompatActivity
         findViewById(R.id.fragmentHolder).setVisibility(View.GONE);
     }
 
-    public void finish(View v){
+    public void completeNewItem(View v){
         EditText foodName = ((EditText)findViewById(R.id.inputName));
         if(foodName.getText().toString().length() == 0){
             Toast.makeText(this, "Must enter valid name", Toast.LENGTH_SHORT).show();
@@ -101,6 +102,10 @@ public class NewFoodItem extends AppCompatActivity
         try{
             AppData.writeFoodItemData(openFileOutput(AppData.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
         finish();

@@ -92,18 +92,6 @@ public class MealItem extends FoodItem{
         ItemMap.put(item.getId(), item);
     }
 
-    protected static List<MealItem> filterItems(long[] ids){
-        if(ids == null) return new ArrayList<>(ItemMap.values());
-        List<MealItem> items = new ArrayList<>(ids.length);
-        MealItem mealItem;
-        for(long id : ids){
-            mealItem = ItemMap.get(id);
-            if(mealItem != null)
-                items.add(ItemMap.get(id));
-        }
-        return items;
-    }
-
     // ---- DATA FILE READ/WRITE METHODS ---- //
 
     private long[] queuedIngredientIDs = null;

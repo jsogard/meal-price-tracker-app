@@ -14,6 +14,8 @@ import com.cpre388.joesogard.mealworm.models.FoodItem;
 import com.cpre388.joesogard.mealworm.models.GroceryItem;
 import com.cpre388.joesogard.mealworm.models.MealItem;
 
+import org.json.JSONException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -28,25 +30,26 @@ public class PantryActivity extends AppCompatActivity
         setContentView(R.layout.activity_pantry);
 
 //        AppData.populateDummyData();
-        readFoodItemData();
-//        readFoodUseData();
+//        readFakeData();
+        readData();
     }
 
-    private void readFoodItemData(){
+    private void readFakeData(){
         try{
-//            AppData.readFoodItemData(openFileInput(AppData.FOOD_ITEM_FILE_NAME));
-            AppData.readFakeData(getApplicationContext().getAssets().open("fooditems.json"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            AppData.readFakeItems(getApplicationContext().getAssets().open("fooditems.json"));
+            AppData.readFakeUses(getApplicationContext().getAssets().open("fooduses.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void readFoodUseData(){
+    private void readData(){
         try{
+            AppData.readFoodItemData(openFileInput(AppData.FOOD_ITEM_FILE_NAME));
             AppData.readFoodUseData(openFileInput(AppData.FOOD_USE_FILE_NAME));
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

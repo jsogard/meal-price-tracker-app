@@ -2,14 +2,10 @@ package com.cpre388.joesogard.mealworm.fragments;
 
 import com.cpre388.joesogard.mealworm.models.FoodItem;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Stack;
 
 /**

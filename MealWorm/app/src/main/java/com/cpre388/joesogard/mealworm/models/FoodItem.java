@@ -40,6 +40,7 @@ public abstract class FoodItem {
 
     public void use(FoodItem usedBy, String ...useLabels){
         FoodUse foodUse = new FoodUse(usedBy, useLabels);
+        FoodUse.addUse(foodUse);
         use(foodUse);
     }
 

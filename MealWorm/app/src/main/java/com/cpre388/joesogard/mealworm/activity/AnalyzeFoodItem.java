@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
 import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
@@ -16,6 +17,7 @@ import com.cpre388.joesogard.mealworm.data.AppData;
 import com.cpre388.joesogard.mealworm.models.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static android.view.View.GONE;
 
@@ -76,6 +78,10 @@ public class AnalyzeFoodItem extends AppCompatActivity
         try {
             AppData.writeFoodUseData(openFileOutput(AppData.FOOD_USE_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
@@ -86,6 +92,10 @@ public class AnalyzeFoodItem extends AppCompatActivity
         try {
             AppData.writeFoodItemData(openFileOutput(AppData.FOOD_ITEM_FILE_NAME, Context.MODE_PRIVATE));
         } catch (FileNotFoundException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (IOException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }

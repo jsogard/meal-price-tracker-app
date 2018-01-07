@@ -34,11 +34,6 @@ public class AppData {
     public static final String FOOD_ITEM_FILE_NAME = "food_items_info.json";
     public static final String FOOD_USE_FILE_NAME = "food_use_info.json";
 
-    public static void addUse(FoodUse use){
-        // // TODO: 12/29/2017
-//        USES.add(use);
-    }
-
 
     public static void populateDummyData(){
         GroceryItem[] ingrs = new GroceryItem[]{
@@ -66,7 +61,7 @@ public class AppData {
         }
     }
 
-    public static void readFakeData(InputStream is){
+    public static void readFakeItems(InputStream is){
 
         String contents = "";
         int b;
@@ -80,9 +75,23 @@ public class AppData {
         }
     }
 
-    private static void stringToItems(String json){
+    public static void readFakeUses(InputStream is){
+
+        String contents = "";
+        int b;
+        try {
+            while((b = is.read()) != -1){
+                contents += (char)b;
+            }
+            stringToUses(contents);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void stringToItems(String jsonString){
         try{
-            JSONArray jsonArray = new JSONArray(json);
+            JSONArray jsonArray = new JSONArray(jsonString);
             for(int i = 0; i < jsonArray.length(); i++){
                 FoodItem.addItem(FoodItem.fromJSON(jsonArray.getJSONObject(i)));
             }
@@ -94,71 +103,59 @@ public class AppData {
         } catch(JSONException e){
             e.printStackTrace();
         }
+    }
 
+    private static void stringToUses(String jsonString){
+        try{
+            JSONArray jsonArray = new JSONArray(jsonString);
+            FoodUse foodUse;
+            for(int i = 0; i < jsonArray.length(); i++){
+                foodUse = FoodUse.fromJSON(jsonArray.getJSONObject(i));
+                FoodUse.addUse(foodUse);
+                foodUse.getUsedBy().use(foodUse);
+            }
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
     }
     
     public static void readFoodItemData(FileInputStream fIn){
 
-
-//        try{
-//            String json = "";
-//            int c;
-//            while((c = fIn.read()) != -1){
-//                json += Character.toString((char)c);
-//            }
-//            JSONArray jsonArray = new JSONArray(json);
-//            for(int i = 0 ; i < jsonArray.length(); i++){
-//                FoodItem.addItem(FoodItem.fromJSON(jsonArray.getJSONObject(i)));
-//            }
-//            for(MealItem foodItem : (List<MealItem>) FoodItem.getFilteredItems(MealItem.FoodTypeID, null)){
-//                foodItem.populateIngredients();
-//            }
-//        } catch(Exception e){
-//            e.printStackTrace();
-//        }
-    }
-
-    public static void writeFoodItemData(FileOutputStream fOut){
-//        try{
-//            JSONArray json = new JSONArray();
-//            // TODO: 12/29/2017
-//            for(FoodItem item : FoodItem.getItemList())
-//                json.put(item.toJSON());
-//            String jsonString = json.toString(3);
-//            fOut.write(jsonString.getBytes());
-//        } catch(Exception e){
-//            e.printStackTrace();
-//        }
-    }
-
-    public static void readFoodUseData(FileInputStream fIn){
         try{
-            String jsonString = "";
+            String json = "";
             int c;
             while((c = fIn.read()) != -1){
-                jsonString += Character.toString((char)c);
+                json += Character.toString((char)c);
             }
-            JSONArray jsonArray = new JSONArray(jsonString);
-            FoodUse foodUse;
-            for(int i = 0 ; i < jsonArray.length(); i++){
-                foodUse = FoodUse.fromJSON(jsonArray.getJSONObject(i));
-                foodUse.getUsedBy().use(foodUse);
-            }
+            stringToItems(json);
         } catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public static void writeFoodUseData(FileOutputStream fOut){
-        try{
-            JSONArray jsonArray = new JSONArray();
-            // TODO: 12/29/2017
-//            for(FoodUse use : AppData.USES)
-//                jsonArray.put(use.toJSON());
-            fOut.write(jsonArray.toString().getBytes());
-        } catch(Exception e){
-            e.printStackTrace();
+    public static void writeFoodItemData(FileOutputStream fOut) throws IOException {
+        JSONArray json = new JSONArray();
+        for(FoodItem item : FoodItem.getItemList())
+            json.put(item.toJSON());
+        String jsonString = json.toString();
+        fOut.write(jsonString.getBytes());
+    }
+
+    /* warning: food use data must be read after food item data */
+    public static void readFoodUseData(FileInputStream fIn) throws IOException, JSONException {
+        String jsonString = "";
+        int c;
+        while((c = fIn.read()) != -1){
+            jsonString += Character.toString((char)c);
         }
+        stringToUses(jsonString);
+    }
+
+    public static void writeFoodUseData(FileOutputStream fOut) throws IOException {
+        JSONArray jsonArray = new JSONArray();
+        for(FoodUse use : FoodUse.getUseHistory())
+            jsonArray.put(use.toJSON());
+        fOut.write(jsonArray.toString().getBytes());
     }
 
 

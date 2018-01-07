@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by Joe Sogard on 11/17/2017.
@@ -29,14 +31,14 @@ public class FoodUse {
             this.useLabels.add(label);
         useDate = Calendar.getInstance();
 
-        AppData.addUse(this);
+//        AppData.addUse(this);
     }
 
     private FoodUse(JSONObject json){
         try{
-//            usedBy = AppData.ITEM_MAP.getOrDefault(json.getLong(USED_BY_ID_LONG), null);
             useDate = Calendar.getInstance();
             useDate.setTimeInMillis(json.getLong(USE_DATE_MILLIS));
+            usedBy = FoodItem.getItem(json.getLong(USED_BY_ID_LONG));
         } catch (JSONException e){
             e.printStackTrace();
         }
@@ -66,7 +68,22 @@ public class FoodUse {
         return null;
     }
 
+
+
+
+    // ---- STATIC STUFF ---- //
+
+    private static List<FoodUse> UseHistory = new Stack<>();
+
+    public static void addUse(FoodUse usage){
+        UseHistory.add(usage);
+    }
+
     public static FoodUse fromJSON(JSONObject jsonObject){
         return new FoodUse(jsonObject);
+    }
+
+    public static List<FoodUse> getUseHistory(){
+        return UseHistory;
     }
 }
