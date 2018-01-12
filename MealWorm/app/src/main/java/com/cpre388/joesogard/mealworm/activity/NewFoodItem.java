@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.RenderProcessGoneDetail;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
@@ -28,54 +29,30 @@ import java.util.List;
 public class NewFoodItem extends AppCompatActivity
     implements PantryItemFragment.OnListFragmentInteractionListener {
 
-    private boolean isGrocery;
-
     private List<FoodItem> ingredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_food_item);
-        isGrocery = true;
+        setContentView(R.layout.activity_new_food);
         ingredients = new ArrayList<>();
     }
 
     public void checkFormat(View v) {
-        boolean newIsGrocery = ((RadioButton) findViewById(R.id.groceryRadio)).isChecked();
-        if(newIsGrocery == isGrocery) return;
-
-        if (newIsGrocery) reformatGrocery(null);
+        boolean isGrocery = ((RadioButton) findViewById(R.id.groceryRadio)).isChecked();
+        if (isGrocery) reformatGrocery(null);
         else reformatMeal(null);
     }
 
-    private FrameLayout emptyFrame() {
-        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.specialView);
-        frameLayout.removeAllViews();
-        return frameLayout;
-    }
-
     public void reformatMeal(View v) {
-        if(!isGrocery) return;
-        isGrocery = false;
-
-        TextView text = new TextView(this);
-        text.setText("Ingredients");
-        text.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        emptyFrame().addView(text);
-
+        findViewById(R.id.priceInput).setVisibility(View.GONE);
+        findViewById(R.id.ingredients).setVisibility(View.VISIBLE);
         findViewById(R.id.fragmentHolder).setVisibility(View.VISIBLE);
     }
 
     public void reformatGrocery(View v) {
-        if(isGrocery) return;
-        isGrocery = true;
-
-        EditText editText = new EditText(this);
-        editText.setHint("$0.00");
-        editText.setId(R.id.priceInput);
-        editText.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        emptyFrame().addView(editText);
-
+        findViewById(R.id.priceInput).setVisibility(View.VISIBLE);
+        findViewById(R.id.ingredients).setVisibility(View.GONE);
         findViewById(R.id.fragmentHolder).setVisibility(View.GONE);
     }
 
