@@ -53,7 +53,7 @@ public class AnalyzeFoodItem extends AppCompatActivity
 
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.foodContent, PantryItemFragment.newInstance(filter))
+                    .add(R.id.foodContent, PantryItemFragment.newInstance(filter, PantryItemFragment.SORT_BY_ID, true))
                     .commit();
         }
     }

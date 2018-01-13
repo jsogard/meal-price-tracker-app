@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.models.FoodItem;
+import com.cpre388.joesogard.mealworm.models.FoodUse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,11 @@ public class PantryItemFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
     private PantryFilter pantryFilter;
+    private Comparator<FoodItem> sorter;
+
+    public static final int SORT_BY_ID = 1;
+    public static final int SORT_BY_NAME = 2;
+    public static final int SORT_BY_LAST_USE = 3;
 
 
     /**
@@ -40,10 +46,39 @@ public class PantryItemFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
-    public static PantryItemFragment newInstance(PantryFilter filter) {
+    public static PantryItemFragment newInstance(PantryFilter filter, int sortType, boolean ascending) {
         PantryItemFragment fragment = new PantryItemFragment();
         fragment.pantryFilter = filter;
+        fragment.sorter = assignComparator(sortType, ascending);
         return fragment;
+    }
+
+    private static Comparator<FoodItem> assignComparator(int sortType, boolean ascending){
+        final int ascMulti = ascending ? -1 : 1;
+        switch(sortType){
+            case SORT_BY_NAME:
+                return new Comparator<FoodItem>() {
+                    @Override
+                    public int compare(FoodItem foodItem, FoodItem t1) {
+                        return foodItem.getName().compareTo(t1.getName()) * ascMulti;
+                    }
+                };
+            case SORT_BY_LAST_USE:
+                return new Comparator<FoodItem>() {
+                    @Override
+                    public int compare(FoodItem foodItem, FoodItem t1) {
+                        return foodItem.getLastUseTime().compareTo(t1.getLastUseTime()) * ascMulti;
+                    }
+                };
+            case SORT_BY_ID:
+            default:
+                return new Comparator<FoodItem>() {
+                    @Override
+                    public int compare(FoodItem foodItem, FoodItem t1) {
+                         return foodItem.compareTo(t1) * ascMulti;
+                    }
+                };
+        }
     }
 
     @Override
@@ -62,6 +97,8 @@ public class PantryItemFragment extends Fragment {
                 foodList = pantryFilter.filter(FoodItem.getItemList());
             else
                 foodList = FoodItem.getItemList();
+
+            foodList.sort(sorter);
 
             recyclerView.setAdapter(new MyPantryItemRecyclerViewAdapter(foodList, mListener));
         }

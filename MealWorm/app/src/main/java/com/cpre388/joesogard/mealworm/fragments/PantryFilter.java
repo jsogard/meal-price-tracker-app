@@ -98,10 +98,10 @@ public class PantryFilter {
         );
     }
 
-    public <T extends Object> boolean addFilterValue(T objValue, String filterKey){
+    public <T extends Object> PantryFilter addFilterValue(T objValue, String filterKey){
         FilterBy filter = filterByMap.get(filterKey);
         if(filter == null)
-            return false;
+            return this;
         if(!filter.filterType.equals(objValue.getClass()))
             throw new IllegalArgumentException(String.format(
                     "Object is type <%s> but must be of type <%s>",
@@ -109,7 +109,7 @@ public class PantryFilter {
                     filter.filterType.getSimpleName()
             ));
         filter.filterValue = objValue;
-        return true;
+        return this;
     }
 
     public List<FoodItem> filter(List<FoodItem> foodItemList) {

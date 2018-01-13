@@ -114,13 +114,6 @@
                     android:layout_marginTop="8dp"
                     android:visibility="gone">
 
-                    <fragment
-                        android:id="@+id/fragment2"
-                        android:name="com.cpre388.joesogard.mealworm.fragments.PantryItemFragment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:layout="@layout/fragment_pantryitem_list" />
-
                 </FrameLayout>
 
             </RelativeLayout>

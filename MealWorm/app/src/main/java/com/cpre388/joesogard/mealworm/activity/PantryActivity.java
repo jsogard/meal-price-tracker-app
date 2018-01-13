@@ -69,30 +69,32 @@ public class PantryActivity extends AppCompatActivity
     protected void onPostResume() {
         super.onPostResume();
 
-        PantryFilter mealFilter = new PantryFilter();
-        mealFilter.addFilterValue(MealItem.class, PantryFilter.FILTER_BY_CLASS);
+        PantryItemFragment mealFragment = PantryItemFragment.newInstance(
+                new PantryFilter().addFilterValue(MealItem.class, PantryFilter.FILTER_BY_CLASS),
+                PantryItemFragment.SORT_BY_LAST_USE, true);
 
-        PantryFilter groceryFilter = new PantryFilter();
-        groceryFilter.addFilterValue(GroceryItem.class, PantryFilter.FILTER_BY_CLASS);
+        PantryItemFragment groceryFragment = PantryItemFragment.newInstance(
+                new PantryFilter().addFilterValue(GroceryItem.class, PantryFilter.FILTER_BY_CLASS),
+                PantryItemFragment.SORT_BY_LAST_USE, true);
 
         if(getSupportFragmentManager().getFragments().size() == 0){
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.mealLayout, PantryItemFragment.newInstance(mealFilter))
+                    .add(R.id.mealLayout, mealFragment)
                     .commit();
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.groceryLayout, PantryItemFragment.newInstance(groceryFilter))
+                    .add(R.id.groceryLayout, groceryFragment)
                     .commit();
 
         }
         else {
             // necessary to refresh the items
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.mealLayout, PantryItemFragment.newInstance(mealFilter))
+                    .replace(R.id.mealLayout, mealFragment)
                     .commit();
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.groceryLayout, PantryItemFragment.newInstance(groceryFilter))
+                    .replace(R.id.groceryLayout, groceryFragment)
                     .commit();
         }
     }

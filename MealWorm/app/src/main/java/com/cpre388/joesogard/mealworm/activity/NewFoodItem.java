@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cpre388.joesogard.mealworm.fragments.MyPantryItemRecyclerViewAdapter;
+import com.cpre388.joesogard.mealworm.fragments.PantryFilter;
 import com.cpre388.joesogard.mealworm.fragments.PantryItemFragment;
 import com.cpre388.joesogard.mealworm.R;
 import com.cpre388.joesogard.mealworm.data.AppData;
@@ -36,6 +37,9 @@ public class NewFoodItem extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_food);
         ingredients = new ArrayList<>();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragmentHolder, PantryItemFragment.newInstance(new PantryFilter(), PantryItemFragment.SORT_BY_NAME, false))
+                .commit();
     }
 
     public void checkFormat(View v) {

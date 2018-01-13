@@ -1,5 +1,9 @@
 package com.cpre388.joesogard.mealworm.models;
 
+import android.support.annotation.NonNull;
+
+import com.cpre388.joesogard.mealworm.activity.AnalyzeFoodItem;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,7 +18,7 @@ import java.util.List;
  * Created by Joe Sogard on 10/3/2017.
  */
 
-public abstract class FoodItem {
+public abstract class FoodItem implements Comparable<FoodItem>{
 
     private static long FoodItemID = 0;
 
@@ -122,6 +126,11 @@ public abstract class FoodItem {
         return getName();
     }
 
+    @Override
+    public int compareTo(@NonNull FoodItem foodItem) {
+        return Long.compare(this.getId(), foodItem.getId());
+    }
+
     public int getSmallImgResourceID() {
         return smallImgResourceID;
     }
@@ -153,6 +162,12 @@ public abstract class FoodItem {
     public void setDepleted(boolean depleted) {
         isDepleted = depleted;
         updateImgResourceID();
+    }
+
+    public Calendar getLastUseTime(){
+        if(useHistory.size() == 0)
+            return genesis;
+        return useHistory.get(useHistory.size()-1).getDateOfUse();
     }
 
     public List<FoodUse> getUseHistory(){
