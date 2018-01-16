@@ -4,6 +4,7 @@ import com.cpre388.joesogard.mealworm.models.FoodItem;
 
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -24,11 +25,20 @@ public class PantryFilter {
         public final void filter(){
             if(filterValue == null) return;
 
-            List<FoodItem> newItems = new Stack<>();
-            for(FoodItem food : items)
-                if(checkAdd(food)) newItems.add(food);
+//            List<FoodItem> newItems = new Stack<>();
+//            for(FoodItem food : items)
+//                if(checkAdd(food)) newItems.add(food);
 
-            items = newItems;
+            Iterator<FoodItem> iter = items.iterator();
+            FoodItem food;
+            while(iter.hasNext()){
+                food = iter.next();
+                if(!checkAdd(food))
+                    iter.remove();
+            }
+
+
+//            items = newItems;
         };
         protected boolean checkAdd(FoodItem foodItem){
             throw new RuntimeException(String.format("%s.checkAdd must be implemented", this.getClass().getName()));

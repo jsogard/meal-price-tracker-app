@@ -97,7 +97,8 @@ public class AppData {
             }
             PantryFilter filter = new PantryFilter();
             filter.addFilterValue(MealItem.class, PantryFilter.FILTER_BY_CLASS);
-            for(FoodItem meal : filter.filter(FoodItem.getItemList())){
+            List<FoodItem> items = filter.filter(FoodItem.getItemList());
+            for(FoodItem meal : items){
                 ((MealItem)meal).populateIngredients();
             }
         } catch(JSONException e){

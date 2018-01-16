@@ -28,6 +28,7 @@ public class MealItem extends FoodItem{
     public MealItem(String name, FoodItem... ingredients){
         this(name);
         this.ingredients = ingredients;
+        if(this.ingredients == null) this.ingredients = new FoodItem[]{};
     }
 
     public FoodItem[] getIngredients(){
@@ -120,7 +121,10 @@ public class MealItem extends FoodItem{
      */
     public void populateIngredients(){
         // TODO: 12/30/2017 enter in ingr ids as parameter to this
-        if(queuedIngredientIDs == null) return;
+        if(queuedIngredientIDs.length == 0){
+            ingredients = new FoodItem[]{};
+            return;
+        }
 
         ingredients = new FoodItem[queuedIngredientIDs.length];
         for(int i = 0; i < ingredients.length; i++){
